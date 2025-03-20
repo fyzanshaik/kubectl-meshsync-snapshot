@@ -1,0 +1,12 @@
+{
+  "cluster_id": "unknown",
+  "plugin_info": {
+    "created_at": "2025-03-21T03:39:56+05:30",
+    "description": "A kubectl plugin for capturing Kubernetes cluster state using MeshSync",
+    "name": "kubectl-meshsync_snapshot",
+    "version": "0.1.0"
+  },
+  "resources": null,
+  "timestamp": "2025-03-21T03:39:56+05:30",
+  "version": "v1"
+}
