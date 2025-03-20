@@ -212,6 +212,8 @@ The direct discovery approach provides a more reliable solution in the short ter
 
 ## Usage
 
+Currently only basic usage works these are some of the commands which we could use
+
 ```bash
 # Basic usage
 kubectl meshsync-snapshot
@@ -242,7 +244,7 @@ make build
 make install
 ```
 
-### Via Krew (Coming Soon)
+### Via Krew (Coming Soon)(What the end project is supposed to be)
 
 ```bash
 kubectl krew install meshsync-snapshot
@@ -263,3 +265,5 @@ go mod download
 # Run in development mode
 go run cmd/kubectl-meshsync_snapshot/main.go --debug
 ```
+
+For running the plugin make sure to have mesherysync binary file inside the folder, as we will be invoking it directly just for now.
