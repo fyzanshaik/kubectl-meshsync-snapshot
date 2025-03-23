@@ -1,0 +1,58 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.out
+
+# Build directories
+/build/
+bin/
+dist/
+
+# Go modules
+go.sum
+go.mod
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and debugging
+*.log
+*.trace
+*.prof
+
+# Test binaries and coverage files
+*.test
+*.cover
+coverage.out
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+
+# Dependency directories (if vendoring is used)
+vendor/
+
+# Generated files
+*.gen.go
+*.pb.go
+*.mock.go
+
+# Git-specific files
+*.orig
+*.rej
+
+# Other stupid stuff
+*.env
+.env.*

@@ -7,172 +7,167 @@ A kubectl plugin for capturing Kubernetes cluster state using MeshSync technolog
 This plugin provides a lightweight alternative to a full Meshery deployment, allowing users to capture a point-in-time snapshot of their Kubernetes cluster's configuration. The snapshot can be
 imported into Meshery for visualization and analysis without requiring permanent connectivity between Meshery Server and the cluster.
 
-## Background
+## Features
 
-### What is Meshery?
+-  **Standalone Operation**: Capture cluster state without requiring a full Meshery deployment
+-  **Filtering Options**: Focus on specific namespaces, resource types, or use label selectors
+-  **Fast Mode**: Quickly capture essential resources with optimized collection
+-  **Customizable Output**: Specify output location or use auto-generated timestamped filenames
+-  **Read-Only Access**: Operates in read-only mode without modifying cluster state (beyond temporary CRDs)
+-  **Clean Interface**: Progress indicators and resource summaries provide clear feedback
+-  **Flexible Format**: Structured JSON output compatible with Meshery's import functionality
 
-Meshery is a self-service engineering platform for the collaborative design and operation of cloud and cloud native infrastructure. It provides a unified interface for managing Kubernetes clusters,
-service meshes, and cloud resources.
+## Installation
 
-### What is MeshSync?
+### Prerequisites
 
-MeshSync is a component of Meshery that:
+-  Kubernetes cluster and `kubectl` configured
+-  Access to your cluster with permissions to create/delete CRDs
+-  MeshSync binary (automatically downloaded if not found)
 
--  Discovers and synchronizes resources from Kubernetes clusters
--  Operates as a Kubernetes controller under the management of Meshery Operator
--  Captures configuration state of resources and sends it to Meshery Server via a NATS broker
+### Installing via Krew
 
-## Plugin Implementation
-
-### Original Approach
-
-My initial approach was based on the understanding that I needed to:
-
-1. Temporarily deploy MeshSync to a Kubernetes cluster
-2. Capture the discovered resources
-3. Save them to a file for later import into Meshery
-4. Remove the temporary MeshSync deployment
-
-However, after discussions with the project maintainer, I learned that I could use MeshSync as a local binary instead of deploying it as a pod, simplifying my approach.
-
-### Current Implementation
-
-My current implementation:
-
-1. Sets up a temporary NATS server for MeshSync to connect to
-2. Runs the MeshSync binary with configuration pointing to this NATS server
-3. Subscribes to the topics MeshSync publishes to
-4. Captures and saves the discovered resources to a file
-5. Cleans up all temporary resources
-
-### Solutions Explored
-
-Instead of modifying the MeshSync component, I explored several approaches to integrate with it:
-
-#### Solution 1: Use MeshSync As-Is with Custom Environment
-
-In this approach, I run the unmodified MeshSync binary but create a controlled environment around it:
-
--  Set up a temporary NATS server on localhost
--  Configure host entries to ensure MeshSync can connect to it
--  Apply necessary CRDs to satisfy MeshSync's requirements
--  Subscribe to MeshSync's published topics to capture data
-
-This has the advantage of not requiring any changes to MeshSync but introduces complexity in managing the environment.
-
-#### Solution 2: Fork and Modify MeshSync
-
-If needed, I could fork the MeshSync repository and make specific changes:
-
--  Modify the `connectivityTest` function to be optional via an environment variable
--  Add an option to output discovered resources directly to a file
--  Remove the dependency on CRDs for basic operation
--  Add a "snapshot mode" that captures state without requiring broker connectivity
-
-This approach gives more control but creates a maintenance burden of keeping the fork in sync with upstream changes.
-
-#### Solution 3: Custom Implementation Using client-go
-
-As an alternative approach, I implemented a direct resource discovery mechanism using Kubernetes client-go:
-
--  Directly query the Kubernetes API for resources
--  Avoid the complexity of MeshSync, NATS, and CRDs entirely
--  Format data in a compatible way for Meshery import
--  Provide a simpler, more reliable solution
-
-This approach sacrifices some of MeshSync's advanced discovery capabilities but offers a more straightforward implementation.
-
-### CRD Requirements
-
-For the MeshSync integration, I needed to apply the CRDs that MeshSync expects. I found these in the Meshery repository:
-
-```
-/install/kubernetes/helm/meshery-operator/crds/crds.yaml
+```bash
+kubectl krew install meshsync-snapshot
 ```
 
-This file contains definitions for:
+### Manual Installation
 
--  `brokers.meshery.io` - Defines the Broker custom resource
--  `meshsyncs.meshery.io` - Defines the MeshSync custom resource
+Clone the repository and build from source:
 
-These CRDs are essential because MeshSync looks for a `MeshSync` custom resource named `meshery-meshsync` in the `meshery` namespace to configure its operation. Without these CRDs and a corresponding
-instance, MeshSync reports errors and may not function properly.
-
-## Technical Challenges
-
-During development, I encountered several challenges:
-
-#### 1. NATS Server Configuration
-
-MeshSync expected a NATS server with specific configuration. I needed to ensure:
-
--  The server was available on the correct hostname and port
--  The HTTP monitoring endpoint was enabled on port 8222
--  The server name was configured correctly
-
-Solution: I implemented a NATS server that listens on both port 4222 (NATS protocol) and 8222 (HTTP monitoring).
-
-#### 2. MeshSync CRD Requirements
-
-MeshSync looks for Custom Resource Definitions (CRDs) in the cluster. When these were not found, MeshSync would report errors:
-
-```
-WARN[...] Missing or outdated CRD. app=meshsync ...
+```bash
+git clone https://github.com/meshery/kubectl-meshsync_snapshot.git
+cd kubectl-meshsync_snapshot
+make build
+make install
 ```
 
-Solution: I implemented a CRD manager that:
+## Usage
 
--  Embeds the necessary CRD definitions
--  Applies them to the cluster before running MeshSync
--  Removes them after capture is complete
--  Creates a MeshSync custom resource instance that points to our NATS broker
+### Basic Usage
 
-#### 3. Data Capture from MeshSync
+To capture a cluster snapshot with default settings:
 
-The most challenging aspect was capturing the data discovered by MeshSync. I investigated multiple approaches:
-
--  Using MeshSync as a library (importing it directly)
--  Using MeshSync as a binary (executing it as a subprocess)
--  Subscribing to the NATS topics MeshSync publishes to
-
-I chose the NATS subscription approach as it required minimal changes to MeshSync while allowing me to capture its discovered resources.
-
-#### 4. MeshSync Panic
-
-Despite applying the CRDs and creating a MeshSync custom resource, I still encountered a panic in MeshSync:
-
-```
-panic: interface conversion: interface {} is nil, not map[string]cache.Store
+```bash
+kubectl meshsync-snapshot
 ```
 
-This appears to be related to how MeshSync initializes its discovery pipeline. I continue to investigate this issue.
+This will:
 
-## Project Structure
+1. Start a temporary NATS broker
+2. Deploy MeshSync CRDs temporarily
+3. Collect resources for 30 seconds
+4. Save the snapshot to `meshsync-snapshot.json` in the current directory
+5. Clean up all temporary resources
 
+### Command Options
+
+| Option              | Description                                               |
+| ------------------- | --------------------------------------------------------- |
+| `--output`, `-o`    | Output file path (default: "meshsync-snapshot.json")      |
+| `--auto-name`       | Generate filename with timestamp                          |
+| `--namespace`, `-n` | Filter resources by namespace                             |
+| `--type`, `-t`      | Filter resources by resource type (e.g., Pod, Deployment) |
+| `--selector`, `-l`  | Filter resources by label selector (e.g., app=nginx)      |
+| `--exclude`         | Comma-separated list of resource types to exclude         |
+| `--fast`            | Capture only essential resources with shorter timeout     |
+| `--time`            | Collection time in seconds (default: 30)                  |
+| `--format`          | Output format: json or yaml (default: "json")             |
+| `--quiet`, `-q`     | Minimal output                                            |
+| `--verbose`, `-v`   | Detailed output                                           |
+| `--preview`         | Show what would be captured without saving                |
+
+### Examples
+
+**Filter by namespace:**
+
+```bash
+kubectl meshsync-snapshot --namespace kube-system
 ```
-kubectl-meshsync_snapshot/
-├── cmd/
-│   └── kubectl-meshsync_snapshot/      # Main executable code
-│       └── main.go                     # Entry point for the plugin
-├── pkg/
-│   ├── crds/                           # CRD management code
-│   │   └── manager.go                  # Applies/removes Meshery CRDs
-│   ├── k8s/                            # Kubernetes utilities
-│   │   └── snapshot.go                 # Direct resource capture (fallback)
-│   ├── meshsync/                       # MeshSync integration
-│   │   ├── runner.go                   # Runs MeshSync binary
-│   │   └── subscriber.go               # Subscribes to MeshSync data
-│   ├── models/                         # Data models
-│   │   └── kubernetes.go               # Resource models
-│   └── nats/                           # NATS server code
-│       └── server.go                   # Temporary NATS server
-├── go.mod                              # Go module definition
-├── go.sum                              # Go dependencies checksum
-├── Makefile                            # Build automation
-└── README.md                           # This file
+
+**Capture only pods:**
+
+```bash
+kubectl meshsync-snapshot --type Pod
 ```
 
-## Flow Diagram
+**Use a custom output file:**
+
+```bash
+kubectl meshsync-snapshot --output ~/snapshots/my-cluster.json
+```
+
+**Generate timestamped filename:**
+
+```bash
+kubectl meshsync-snapshot --auto-name
+```
+
+**Capture essential resources quickly:**
+
+```bash
+kubectl meshsync-snapshot --fast
+```
+
+**Filter by label:**
+
+```bash
+kubectl meshsync-snapshot --selector app=nginx
+```
+
+**Exclude specific resource types:**
+
+```bash
+kubectl meshsync-snapshot --exclude "ConfigMap,Secret"
+```
+
+**Custom collection time:**
+
+```bash
+kubectl meshsync-snapshot --time 60
+```
+
+**Preview without capturing:**
+
+```bash
+kubectl meshsync-snapshot --preview
+```
+
+**Quiet output for scripting:**
+
+```bash
+kubectl meshsync-snapshot --quiet
+```
+
+## Architecture
+
+The plugin operates through several key components working together:
+
+### Workflow
+
+1. **Setup Phase**:
+
+   -  Start a temporary NATS server for message brokering
+   -  Apply MeshSync CRDs and custom resources to the cluster
+   -  Start the MeshSync binary as a subprocess
+
+2. **Collection Phase**:
+
+   -  MeshSync discovers resources and publishes them to NATS
+   -  Plugin subscribes to NATS topics to collect resources
+   -  Resources are filtered based on user options
+
+3. **Output Phase**:
+
+   -  Collected resources are saved to the specified output file
+   -  A summary of captured resources is displayed
+
+4. **Cleanup Phase**:
+   -  MeshSync process is terminated
+   -  CRDs and custom resources are removed
+   -  NATS server is shut down
+
+### Component Diagram
 
 ```
 ┌─────────────────┐     ┌────────────────┐    ┌────────────────┐     ┌────────────────┐
@@ -186,84 +181,59 @@ kubectl-meshsync_snapshot/
 └─────────────────┘
 ```
 
-1. The plugin starts a temporary NATS server
-2. It applies the necessary CRDs and creates a MeshSync custom resource
-3. It runs the MeshSync binary, which connects to the NATS server
-4. MeshSync discovers resources and publishes them to NATS
-5. The plugin subscribes to these resources and saves them to a file
-6. All temporary resources are cleaned up
+### MeshSync Integration
 
-## Current Status and Issues
+The plugin integrates with MeshSync, a component of Meshery responsible for discovering and synchronizing Kubernetes resources. Key aspects of this integration:
 
-The current implementation faces a challenge with MeshSync crashing with a panic:
+1. **Standalone Execution**: Uses MeshSync as a binary rather than a Kubernetes pod
+2. **Temporary NATS Broker**: Sets up a temporary message broker for MeshSync to publish resources
+3. **Custom Resource Configuration**: Creates appropriate custom resources for MeshSync to operate
+4. **Resource Processing**: Subscribes to published resources and processes them for output
 
-```
-panic: interface conversion: interface {} is nil, not map[string]cache.Store
-```
+## Technical Details
 
-This occurs in the `startDiscovery` method in `meshsync/discovery.go`. The issue appears to be related to MeshSync's expectation of certain configuration or resources being present in the cluster.
+### MeshSync Operational Flow
 
-I'm exploring two paths forward:
+MeshSync discovers resources through the following process:
 
-1. **Continue troubleshooting MeshSync integration**: Identify and fix the specific configuration MeshSync expects
-2. **Implement a direct discovery approach**: Use the Kubernetes client-go library to discover resources directly
+1. **Dynamic Informers**: Utilizes Kubernetes dynamic informers to watch all resource types
+2. **Pipeline Processing**: Processes discovered resources through a pipeline
+3. **Publishing**: Publishes resources to NATS topics
+4. **Resource Model**: Transforms Kubernetes objects into a standardized model
 
-The direct discovery approach provides a more reliable solution in the short term, while continuing to work on the MeshSync integration for a more comprehensive solution.
+### Plugin Implementation
 
-## Usage
+The implementation addresses several technical challenges:
 
-Currently only basic usage works these are some of the commands which we could use
+1. **Process Management**: Carefully manages subprocess execution and cleanup
+2. **NATS Configuration**: Sets up a properly configured NATS server for MeshSync to use
+3. **CRD Requirements**: Applies necessary CRDs and custom resources for MeshSync operation
+4. **Output Control**: Handles verbose logs and error messages for a clean user experience
+5. **Resource Collection**: Efficiently collects and processes published resources
 
-```bash
-# Basic usage
-kubectl meshsync-snapshot
+### Error Handling
 
-# Specify output file
-kubectl meshsync-snapshot --output=my-snapshot.json
+The plugin includes several error handling mechanisms:
 
-# Specify wait time (seconds)
-kubectl meshsync-snapshot --wait=60
+1. **Graceful Degradation**: Falls back to different collection strategies when needed
+2. **Comprehensive Cleanup**: Ensures all temporary resources are cleaned up even on failure
+3. **Clear Feedback**: Provides meaningful error messages and warnings
 
-# Debug mode
-kubectl meshsync-snapshot --debug
-```
+## Potential Improvements
 
-## Installation
+While the current implementation is functional, several improvements could be made:
 
-### From Source
+1. **Direct MeshSync Integration**: A fork of MeshSync specifically for snapshot functionality could eliminate dependency on NATS
+2. **Resource Discovery Optimization**: Enhanced filtering options could reduce unnecessary resource discovery
+3. **YAML Output Format**: Supporting YAML output format would provide more flexibility
+4. **Collection Progress**: More granular progress reporting based on discovered resource types
+5. **Cluster Adaptation**: Automatic adjustment of collection strategy based on cluster size
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/kubectl-meshsync_snapshot.git
-cd kubectl-meshsync_snapshot
+## Contributing
 
-# Build the plugin
-make build
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-# Install to your PATH
-make install
-```
+## Acknowledgments
 
-### Via Krew (Coming Soon)(What the end project is supposed to be)
-
-```bash
-kubectl krew install meshsync-snapshot
-```
-
-## Development
-
-To set up a development environment:
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/kubectl-meshsync_snapshot.git
-cd kubectl-meshsync_snapshot
-
-# Get dependencies
-go mod download
-
-# Run in development mode
-go run cmd/kubectl-meshsync_snapshot/main.go --debug
-```
-
-For running the plugin make sure to have mesherysync binary file inside the folder, as we will be invoking it directly just for now.
+-  The [Meshery](https://meshery.io/) project for creating MeshSync
+-  The [Krew](https://krew.sigs.k8s.io/) project for the kubectl plugin ecosystem
