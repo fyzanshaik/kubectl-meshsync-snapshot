@@ -27,35 +27,30 @@ func (m *Manager) Apply() error {
 	if !m.options.QuietMode {
 		fmt.Println("Applying MeshSync CRDs...")
 	}
-	
-	// Skip in preview mode
+
 	if m.options.PreviewMode {
 		return nil
 	}
-	
-	// Create a temporary file for the CRDs
+
 	tmpFile, err := ioutil.TempFile("", "meshery-crds-*.yaml")
 	if err != nil {
 		return fmt.Errorf("failed to create temporary file: %w", err)
 	}
 	m.crdFilePath = tmpFile.Name()
-	
-	// Write CRD content to the file
+
 	if _, err := tmpFile.Write([]byte(crdContent)); err != nil {
 		return fmt.Errorf("failed to write CRDs to temporary file: %w", err)
 	}
 	if err := tmpFile.Close(); err != nil {
 		return fmt.Errorf("failed to close temporary file: %w", err)
 	}
-	
-	// Apply the CRDs
+
 	cmd := exec.Command("kubectl", "apply", "-f", m.crdFilePath)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to apply CRDs: %w\nOutput: %s", err, output)
 	}
-	
-	// Create meshery namespace
+
 	namespaceYAML := `
 apiVersion: v1
 kind: Namespace
@@ -67,21 +62,20 @@ metadata:
 		return fmt.Errorf("failed to create temporary file: %w", err)
 	}
 	defer os.Remove(tmpNamespaceFile.Name())
-	
+
 	if _, err := tmpNamespaceFile.Write([]byte(namespaceYAML)); err != nil {
 		return fmt.Errorf("failed to write namespace YAML to temporary file: %w", err)
 	}
 	if err := tmpNamespaceFile.Close(); err != nil {
 		return fmt.Errorf("failed to close temporary file: %w", err)
 	}
-	
+
 	cmd = exec.Command("kubectl", "apply", "-f", tmpNamespaceFile.Name())
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to apply namespace: %w\nOutput: %s", err, output)
 	}
-	
-	// Create Broker CR first
+
 	brokerYAML := `
 apiVersion: meshery.io/v1alpha1
 kind: Broker
@@ -96,27 +90,24 @@ spec:
 		return fmt.Errorf("failed to create temporary file: %w", err)
 	}
 	defer os.Remove(tmpBrokerFile.Name())
-	
+
 	if _, err := tmpBrokerFile.Write([]byte(brokerYAML)); err != nil {
 		return fmt.Errorf("failed to write Broker YAML to temporary file: %w", err)
 	}
 	if err := tmpBrokerFile.Close(); err != nil {
 		return fmt.Errorf("failed to close temporary file: %w", err)
 	}
-	
+
 	cmd = exec.Command("kubectl", "apply", "-f", tmpBrokerFile.Name())
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to apply Broker instance: %w\nOutput: %s", err, output)
 	}
-	
-	// Wait a moment for broker to initialize
+
 	if !m.options.QuietMode {
 		fmt.Println("Waiting for broker to initialize...")
 	}
-	
-	// Create MeshSync CR with proper configuration
-	// Add whitelist for common resources
+
 	meshSyncYAML := `
 apiVersion: meshery.io/v1alpha1
 kind: MeshSync
@@ -138,20 +129,20 @@ spec:
 		return fmt.Errorf("failed to create temporary file: %w", err)
 	}
 	defer os.Remove(tmpMeshSyncFile.Name())
-	
+
 	if _, err := tmpMeshSyncFile.Write([]byte(meshSyncYAML)); err != nil {
 		return fmt.Errorf("failed to write MeshSync YAML to temporary file: %w", err)
 	}
 	if err := tmpMeshSyncFile.Close(); err != nil {
 		return fmt.Errorf("failed to close temporary file: %w", err)
 	}
-	
+
 	cmd = exec.Command("kubectl", "apply", "-f", tmpMeshSyncFile.Name())
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to apply MeshSync instance: %w\nOutput: %s", err, output)
 	}
-	
+
 	m.applied = true
 	if !m.options.QuietMode {
 		fmt.Println("MeshSync CRDs and instance applied successfully")
@@ -163,26 +154,23 @@ func (m *Manager) Remove() error {
 	if !m.applied || m.options.PreviewMode {
 		return nil
 	}
-	
+
 	if !m.options.QuietMode {
 		fmt.Println("Removing MeshSync instance and CRDs...")
 	}
-	
-	// Remove MeshSync CR
+
 	cmd := exec.Command("kubectl", "delete", "meshsync", "meshery-meshsync", "-n", "meshery", "--ignore-not-found=true")
 	_, err := cmd.CombinedOutput()
 	if err != nil && !m.options.QuietMode {
 		fmt.Printf("Warning: failed to remove MeshSync instance: %v\n", err)
 	}
-	
-	// Remove Broker CR
+
 	cmd = exec.Command("kubectl", "delete", "broker", "meshery-broker", "-n", "meshery", "--ignore-not-found=true")
 	_, err = cmd.CombinedOutput()
 	if err != nil && !m.options.QuietMode {
 		fmt.Printf("Warning: failed to remove Broker instance: %v\n", err)
 	}
-	
-	// Remove CRDs
+
 	if _, err := os.Stat(m.crdFilePath); err == nil {
 		cmd = exec.Command("kubectl", "delete", "-f", m.crdFilePath, "--ignore-not-found=true")
 		_, err = cmd.CombinedOutput()
@@ -190,18 +178,16 @@ func (m *Manager) Remove() error {
 			fmt.Printf("Warning: failed to remove CRDs: %v\n", err)
 		}
 	}
-	
+
 	os.Remove(m.crdFilePath)
 	m.applied = false
-	
+
 	if !m.options.QuietMode {
 		fmt.Println("MeshSync instance and CRDs removed")
 	}
 	return nil
 }
 
-// crdContent contains the YAML definition for MeshSync CRDs
-// crdContent contains the YAML definition for MeshSync CRDs
 var crdContent = `
 ---
 apiVersion: apiextensions.k8s.io/v1

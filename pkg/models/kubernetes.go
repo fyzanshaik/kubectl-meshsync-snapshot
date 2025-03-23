@@ -1,6 +1,5 @@
 package models
 
-// KubernetesResource represents a Kubernetes resource discovered by MeshSync
 type KubernetesResource struct {
 	ID                     string                        `json:"id"`
 	APIVersion             string                        `json:"apiVersion"`
@@ -12,7 +11,7 @@ type KubernetesResource struct {
 	ClusterID              string                        `json:"cluster_id"`
 	PatternResource        interface{}                   `json:"pattern_resource"`
 	ComponentMetadata      map[string]interface{}        `json:"component_metadata"`
-	// Secondary fields for configsmaps and secrets
+
 	Immutable  string `json:"immutable,omitempty"`
 	Data       string `json:"data,omitempty"`
 	BinaryData string `json:"binaryData,omitempty"`
@@ -20,7 +19,6 @@ type KubernetesResource struct {
 	Type       string `json:"type,omitempty"`
 }
 
-// KubernetesResourceObjectMeta represents metadata for a Kubernetes resource
 type KubernetesResourceObjectMeta struct {
 	ID                         string                `json:"id"`
 	Name                       string                `json:"name,omitempty"`
@@ -42,19 +40,16 @@ type KubernetesResourceObjectMeta struct {
 	ClusterID                  string                `json:"cluster_id"`
 }
 
-// KubernetesResourceSpec represents the spec of a Kubernetes resource
 type KubernetesResourceSpec struct {
 	ID        string `json:"id"`
 	Attribute string `json:"attribute,omitempty"`
 }
 
-// KubernetesResourceStatus represents the status of a Kubernetes resource
 type KubernetesResourceStatus struct {
 	ID        string `json:"id"`
 	Attribute string `json:"attribute,omitempty"`
 }
 
-// KubernetesKeyValue represents a key-value pair in Kubernetes metadata
 type KubernetesKeyValue struct {
 	ID       string `json:"id"`
 	UniqueID string `json:"unique_id"`

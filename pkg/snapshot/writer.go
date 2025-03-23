@@ -14,7 +14,7 @@ func SaveToFile(resources []*models.KubernetesResource, filePath string, options
 	if options.VerboseMode {
 		fmt.Printf("Saving %d resources to %s\n", len(resources), filePath)
 	}
-	
+
 	snapshot := map[string]interface{}{
 		"version": "v1",
 		"timestamp": time.Now().Format(time.RFC3339),
@@ -23,26 +23,25 @@ func SaveToFile(resources []*models.KubernetesResource, filePath string, options
 		"plugin_info": getPluginInfo(),
 		"filter_options": getFilterOptions(options),
 	}
-	
+
 	var data []byte
 	var err error
-	
+
 	if options.OutputFormat == "yaml" {
-		// TODO: Implement YAML output if needed
+		//TODO: Implement YAML output format
 		return fmt.Errorf("YAML output format not yet implemented")
 	} else {
-		// Default to JSON
+
 		data, err = json.MarshalIndent(snapshot, "", "  ")
 		if err != nil {
 			return fmt.Errorf("failed to marshal snapshot to JSON: %w", err)
 		}
 	}
-	
+
 	if options.VerboseMode {
 		fmt.Printf("JSON size: %d bytes\n", len(data))
 	}
-	
-	// Get absolute path
+
 	absPath, err := filepath.Abs(filePath)
 	if err != nil {
 		if options.VerboseMode {
@@ -50,21 +49,20 @@ func SaveToFile(resources []*models.KubernetesResource, filePath string, options
 		}
 		absPath = filePath
 	}
-	
+
 	if options.VerboseMode {
 		fmt.Printf("Writing to absolute path: %s\n", absPath)
 	}
-	
+
 	err = os.WriteFile(absPath, data, 0644)
 	if err != nil {
 		return fmt.Errorf("failed to write snapshot to file: %w", err)
 	}
-	
-	// Verify the file exists
+
 	if _, err := os.Stat(absPath); err != nil {
 		return fmt.Errorf("failed to verify file was created: %w", err)
 	}
-	
+
 	if options.VerboseMode {
 		fmt.Printf("File successfully written: %s (%d bytes)\n", absPath, len(data))
 	}
@@ -94,14 +92,14 @@ func getFilterOptions(options *models.Options) map[string]interface{} {
 		"fast_mode": options.FastMode,
 		"collection_time": options.CollectionTime.String(),
 	}
-	
+
 	if options.LabelSelector != "" {
 		result["label_selector"] = options.LabelSelector
 	}
-	
+
 	if len(options.ExcludeTypes) > 0 {
 		result["excluded_types"] = options.ExcludeTypes
 	}
-	
+
 	return result
 }
