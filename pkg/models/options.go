@@ -27,7 +27,7 @@ func NewDefaultOptions() *Options {
 	return &Options{
 		OutputFile:     "meshsync-snapshot.json",
 		OutputFormat:   "json",
-		CollectionTime: 30 * time.Second,
+		CollectionTime: 5 * time.Second,
 		QuietMode:      false,
 		VerboseMode:    false,
 		PreviewMode:    false,

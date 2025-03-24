@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"path/filepath"
 	"strings"
+	"sync"
 	"syscall"
 	"time"
 
@@ -18,6 +19,7 @@ import (
 	"github.com/fyzanshaik/kubectl-meshsync_snapshot/pkg/nats"
 	"github.com/fyzanshaik/kubectl-meshsync_snapshot/pkg/snapshot"
 	"github.com/fyzanshaik/kubectl-meshsync_snapshot/pkg/utils"
+	natsd "github.com/nats-io/nats-server/v2/server"
 )
 
 func main() {
@@ -47,8 +49,8 @@ func main() {
 
 	flag.Parse()
 
-	if options.FastMode && *waitTime == 30 {
-		*waitTime = 15 
+	if options.FastMode && *waitTime == 5 {
+		*waitTime = 3 
 	}
 	options.CollectionTime = time.Duration(*waitTime) * time.Second
 
@@ -95,11 +97,40 @@ func main() {
 
 	setupHostsEntry()
 
-	natsServer, err := nats.StartServer(options)
-	if err != nil {
-		fmt.Printf("Error starting NATS server: %v\n", err)
+	var wg sync.WaitGroup
+	var natsServer *natsd.Server
+	var natsErr error
+	var crdManager *crds.Manager
+	var crdErr error
+
+	wg.Add(2)
+
+	go func() {
+		defer wg.Done()
+		natsServer, natsErr = nats.StartServer(options)
+	}()
+
+	go func() {
+		defer wg.Done()
+		crdManager = crds.NewManager("pkg/crds/meshery-crds.yaml", options)
+		crdErr = crdManager.Apply()
+	}()
+
+	wg.Wait()
+
+	if natsErr != nil {
+		fmt.Printf("Error starting NATS server: %v\n", natsErr)
 		os.Exit(1)
 	}
+
+	if crdErr != nil {
+		fmt.Printf("Error applying CRDs: %v\n", crdErr)
+		if natsServer != nil {
+			natsServer.Shutdown()
+		}
+		os.Exit(1)
+	}
+
 	defer func() {
 		if natsServer != nil {
 			if options.VerboseMode {
@@ -109,12 +140,6 @@ func main() {
 		}
 	}()
 
-	crdManager := crds.NewManager("pkg/crds/meshery-crds.yaml", options)
-	if err := crdManager.Apply(); err != nil {
-		fmt.Printf("Error applying CRDs: %v\n", err)
-		os.Exit(1)
-	}
-
 	meshSyncCmd, err := meshsync.Run("nats:4222", meshsyncPath, options)
 	if err != nil {
 		fmt.Printf("Error starting MeshSync: %v\n", err)
@@ -123,22 +148,21 @@ func main() {
 		os.Exit(1)
 	}
 
-defer func() {
+	defer func() {
+		if meshSyncCmd != nil && meshSyncCmd.Process != nil {
+			if options.VerboseMode {
+				fmt.Println("Terminating MeshSync process...")
+			}
 
-    if meshSyncCmd != nil && meshSyncCmd.Process != nil {
-        if options.VerboseMode {
-            fmt.Println("Terminating MeshSync process...")
-        }
+			meshsync.KillProcessGroup(meshSyncCmd)
 
-        meshsync.KillProcessGroup(meshSyncCmd)
+			exec.Command("pkill", "-9", "-f", "meshsync").Run()
 
-        exec.Command("pkill", "-9", "-f", "meshsync").Run()
+			time.Sleep(200 * time.Millisecond)
+		}
 
-        time.Sleep(200 * time.Millisecond)
-    }
-
-    crdManager.Remove()
-}()
+		crdManager.Remove()
+	}()
 
 	resources, err := meshsync.CollectResources(ctx, "nats://localhost:4222", options)
 	if err != nil {
@@ -183,10 +207,8 @@ defer func() {
 }
 
 func setupHostsEntry() error {
-
 	checkCmd := exec.Command("grep", "-q", "nats", "/etc/hosts")
 	if checkCmd.Run() == nil {
-
 		return nil
 	}
 
@@ -195,7 +217,6 @@ func setupHostsEntry() error {
 }
 
 func findMeshSyncBinary() (string, error) {
-
 	if _, err := os.Stat("./meshsync"); err == nil {
 		return "./meshsync", nil
 	}

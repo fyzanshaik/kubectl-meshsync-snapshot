@@ -2,15 +2,29 @@ package nats
 
 import (
 	"fmt"
+	"net"
 	"time"
 
 	"github.com/fyzanshaik/kubectl-meshsync_snapshot/pkg/models"
 	natsd "github.com/nats-io/nats-server/v2/server"
 )
 
+func isPortInUse(port int) bool {
+	conn, err := net.DialTimeout("tcp", fmt.Sprintf("127.0.0.1:%d", port), time.Second)
+	if err != nil {
+		return false
+	}
+	conn.Close()
+	return true
+}
+
 func StartServer(options *models.Options) (*natsd.Server, error) {
 	if options.VerboseMode {
 		fmt.Println("Starting temporary NATS server...")
+	}
+
+	if isPortInUse(4222) {
+		return nil, fmt.Errorf("port 4222 is already in use, cannot start NATS server")
 	}
 
 	opts := &natsd.Options{
@@ -24,7 +38,7 @@ func StartServer(options *models.Options) (*natsd.Server, error) {
 		Debug:          false,
 		Trace:          false,
 		Logtime:        false,
-		JetStream:      true,
+		JetStream:      false,
 	}
 
 	natsServer, err := natsd.NewServer(opts)
@@ -33,7 +47,6 @@ func StartServer(options *models.Options) (*natsd.Server, error) {
 	}
 
 	if !options.VerboseMode {
-
 		natsServer.SetLogger(nil, false, false)
 	}
 
@@ -43,7 +56,7 @@ func StartServer(options *models.Options) (*natsd.Server, error) {
 		fmt.Print("Waiting for NATS server to be ready...")
 	}
 
-	if !waitForServerReady(natsServer, 2*time.Second) {
+	if !waitForServerReady(natsServer, 5*time.Second) {
 		natsServer.Shutdown()
 		return nil, fmt.Errorf("timed out waiting for NATS server to start")
 	}

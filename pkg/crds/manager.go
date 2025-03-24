@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"time"
 
 	"github.com/fyzanshaik/kubectl-meshsync_snapshot/pkg/models"
 )
@@ -160,22 +161,36 @@ func (m *Manager) Remove() error {
 	}
 
 	cmd := exec.Command("kubectl", "delete", "meshsync", "meshery-meshsync", "-n", "meshery", "--ignore-not-found=true")
-	_, err := cmd.CombinedOutput()
-	if err != nil && !m.options.QuietMode {
-		fmt.Printf("Warning: failed to remove MeshSync instance: %v\n", err)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		if !m.options.QuietMode {
+			fmt.Printf("Warning: failed to remove MeshSync instance: %v\nOutput: %s\n", err, output)
+		}
 	}
 
+	time.Sleep(500 * time.Millisecond)
+
 	cmd = exec.Command("kubectl", "delete", "broker", "meshery-broker", "-n", "meshery", "--ignore-not-found=true")
+	output, err = cmd.CombinedOutput()
+	if err != nil {
+		if !m.options.QuietMode {
+			fmt.Printf("Warning: failed to remove Broker instance: %v\nOutput: %s\n", err, output)
+		}
+	}
+
+	time.Sleep(1 * time.Second)
+
+	cmd = exec.Command("kubectl", "delete", "namespace", "meshery", "--ignore-not-found=true")
 	_, err = cmd.CombinedOutput()
 	if err != nil && !m.options.QuietMode {
-		fmt.Printf("Warning: failed to remove Broker instance: %v\n", err)
+		fmt.Printf("Warning: failed to remove namespace: %v\n", err)
 	}
 
 	if _, err := os.Stat(m.crdFilePath); err == nil {
 		cmd = exec.Command("kubectl", "delete", "-f", m.crdFilePath, "--ignore-not-found=true")
-		_, err = cmd.CombinedOutput()
+		output, err = cmd.CombinedOutput()
 		if err != nil && !m.options.QuietMode {
-			fmt.Printf("Warning: failed to remove CRDs: %v\n", err)
+			fmt.Printf("Warning: failed to remove CRDs: %v\nOutput: %s\n", err, output)
 		}
 	}
 
