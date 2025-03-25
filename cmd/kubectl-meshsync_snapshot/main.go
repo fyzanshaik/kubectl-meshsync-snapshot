@@ -162,6 +162,14 @@ func main() {
 		}
 
 		crdManager.Remove()
+
+		if err:= deleteNamespace("meshery"); err != nil {
+			fmt.Printf("Error deleting namespace meshery: %v\n", err)
+		} else {
+			fmt.Println("Namespace meshery deleted successfully.")
+		}
+
+
 	}()
 
 	resources, err := meshsync.CollectResources(ctx, "nats://localhost:4222", options)
@@ -235,4 +243,16 @@ func findMeshSyncBinary() (string, error) {
 	}
 
 	return "", fmt.Errorf("MeshSync binary not found. Please ensure it's in the same directory as this plugin or in your PATH")
+}
+
+func deleteNamespace(namespace string) error {
+	cmd := exec.Command("kubectl", "delete", "namespace", namespace)
+
+	output,err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("failed to delete namespace %s: %v\nOutput: %s", namespace, err, string(output))
+	}
+
+	fmt.Printf("Namespace %s deleted successfully.\nOutput: %s", namespace, string(output))
+	return nil
 }

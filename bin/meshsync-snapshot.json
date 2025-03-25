@@ -7,45 +7,12 @@
     "resource_type": ""
   },
   "plugin_info": {
-    "created_at": "2025-03-25T01:31:42+05:30",
+    "created_at": "2025-03-25T01:55:15+05:30",
     "description": "A kubectl plugin for capturing Kubernetes cluster state using MeshSync",
     "name": "kubectl-meshsync_snapshot",
     "version": "0.1.0"
   },
   "resources": [
-    {
-      "id": "",
-      "apiVersion": "meshery.io/v1alpha1",
-      "kind": "Broker",
-      "model": "",
-      "metadata": {
-        "id": "",
-        "name": "meshery-broker",
-        "namespace": "meshery",
-        "uid": "5d07ceda-47d2-458c-a9ea-ebc384cc02cd",
-        "resourceVersion": "85556",
-        "generation": 1,
-        "creationTimestamp": "2025-03-24T18:22:36Z",
-        "annotations": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "kubectl.kubernetes.io/last-applied-configuration",
-            "value": "{\\\"apiVersion\\\":\\\"meshery.io/v1alpha1\\\",\\\"kind\\\":\\\"Broker\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"name\\\":\\\"meshery-broker\\\",\\\"namespace\\\":\\\"meshery\\\"},\\\"spec\\\":{\\\"size\\\":1}}\\n"
-          }
-        ],
-        "managedFields": "[{\"apiVersion\":\"meshery.io/v1alpha1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubectl.kubernetes.io/last-applied-configuration\":{}}},\"f:spec\":{\".\":{},\"f:size\":{}}},\"manager\":\"kubectl-client-side-apply\",\"operation\":\"Update\",\"time\":\"2025-03-24T18:22:36Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"size\":1}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": null
-    },
     {
       "id": "",
       "apiVersion": "v1",
@@ -171,24 +138,62 @@
     },
     {
       "id": "",
-      "apiVersion": "apps/v1",
-      "kind": "DaemonSet",
+      "apiVersion": "v1",
+      "kind": "Node",
       "model": "",
       "metadata": {
         "id": "",
-        "name": "kube-proxy",
-        "namespace": "kube-system",
-        "uid": "040b5a23-1587-45bd-9da9-435873502a65",
-        "resourceVersion": "62668",
-        "generation": 1,
-        "creationTimestamp": "2025-03-18T17:15:47Z",
+        "name": "docker-desktop",
+        "uid": "a3c5e242-98f8-439e-bf98-7c48fb1add49",
+        "resourceVersion": "96187",
+        "creationTimestamp": "2025-03-18T17:15:44Z",
         "labels": [
           {
             "id": "",
             "unique_id": "",
             "kind": "label",
-            "key": "k8s-app",
-            "value": "kube-proxy"
+            "key": "beta.kubernetes.io/arch",
+            "value": "amd64"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "beta.kubernetes.io/os",
+            "value": "linux"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "kubernetes.io/arch",
+            "value": "amd64"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "kubernetes.io/hostname",
+            "value": "docker-desktop"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "kubernetes.io/os",
+            "value": "linux"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "node-role.kubernetes.io/control-plane"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "node.kubernetes.io/exclude-from-external-load-balancers"
           }
         ],
         "annotations": [
@@ -196,24 +201,114 @@
             "id": "",
             "unique_id": "",
             "kind": "annotation",
-            "key": "deprecated.daemonset.template.generation",
-            "value": "1"
+            "key": "kubeadm.alpha.kubernetes.io/cri-socket",
+            "value": "unix:///var/run/cri-dockerd.sock"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "annotation",
+            "key": "node.alpha.kubernetes.io/ttl",
+            "value": "0"
+          },
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "annotation",
+            "key": "volumes.kubernetes.io/controller-managed-attach-detach",
+            "value": "true"
           }
         ],
-        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:deprecated.daemonset.template.generation\":{}},\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:containers\":{\"k:{\\\"name\\\":\\\"kube-proxy\\\"}\":{\".\":{},\"f:command\":{},\"f:env\":{\".\":{},\"k:{\\\"name\\\":\\\"NODE_NAME\\\"}\":{\".\":{},\"f:name\":{},\"f:valueFrom\":{\".\":{},\"f:fieldRef\":{}}}},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:name\":{},\"f:resources\":{},\"f:securityContext\":{\".\":{},\"f:privileged\":{}},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{},\"f:volumeMounts\":{\".\":{},\"k:{\\\"mountPath\\\":\\\"/lib/modules\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{},\"f:readOnly\":{}},\"k:{\\\"mountPath\\\":\\\"/run/xtables.lock\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{}},\"k:{\\\"mountPath\\\":\\\"/var/lib/kube-proxy\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{}}}}},\"f:dnsPolicy\":{},\"f:hostNetwork\":{},\"f:nodeSelector\":{},\"f:priorityClassName\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:serviceAccount\":{},\"f:serviceAccountName\":{},\"f:terminationGracePeriodSeconds\":{},\"f:tolerations\":{},\"f:volumes\":{\".\":{},\"k:{\\\"name\\\":\\\"kube-proxy\\\"}\":{\".\":{},\"f:configMap\":{\".\":{},\"f:defaultMode\":{},\"f:name\":{}},\"f:name\":{}},\"k:{\\\"name\\\":\\\"lib-modules\\\"}\":{\".\":{},\"f:hostPath\":{\".\":{},\"f:path\":{},\"f:type\":{}},\"f:name\":{}},\"k:{\\\"name\\\":\\\"xtables-lock\\\"}\":{\".\":{},\"f:hostPath\":{\".\":{},\"f:path\":{},\"f:type\":{}},\"f:name\":{}}}}},\"f:updateStrategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}}}},\"manager\":\"kubeadm\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:47Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:status\":{\"f:currentNumberScheduled\":{},\"f:desiredNumberScheduled\":{},\"f:numberAvailable\":{},\"f:numberReady\":{},\"f:observedGeneration\":{},\"f:updatedNumberScheduled\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T13:53:30Z\"}]",
+        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:volumes.kubernetes.io/controller-managed-attach-detach\":{}},\"f:labels\":{\".\":{},\"f:beta.kubernetes.io/arch\":{},\"f:beta.kubernetes.io/os\":{},\"f:kubernetes.io/arch\":{},\"f:kubernetes.io/hostname\":{},\"f:kubernetes.io/os\":{}}}},\"manager\":\"kubelet\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:44Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\"f:kubeadm.alpha.kubernetes.io/cri-socket\":{}},\"f:labels\":{\"f:node-role.kubernetes.io/control-plane\":{},\"f:node.kubernetes.io/exclude-from-external-load-balancers\":{}}}},\"manager\":\"kubeadm\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:46Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\"f:node.alpha.kubernetes.io/ttl\":{}}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:51Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:status\":{\"f:allocatable\":{\"f:memory\":{}},\"f:capacity\":{\"f:memory\":{}},\"f:conditions\":{\"k:{\\\"type\\\":\\\"DiskPressure\\\"}\":{\"f:lastHeartbeatTime\":{}},\"k:{\\\"type\\\":\\\"MemoryPressure\\\"}\":{\"f:lastHeartbeatTime\":{}},\"k:{\\\"type\\\":\\\"PIDPressure\\\"}\":{\"f:lastHeartbeatTime\":{}},\"k:{\\\"type\\\":\\\"Ready\\\"}\":{\"f:lastHeartbeatTime\":{},\"f:lastTransitionTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{}}},\"f:images\":{},\"f:nodeInfo\":{\"f:bootID\":{}}}},\"manager\":\"kubelet\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T20:24:55Z\"}]",
         "cluster_id": ""
       },
       "spec": {
         "id": "",
-        "attribute": "{\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"k8s-app\":\"kube-proxy\"}},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"k8s-app\":\"kube-proxy\"}},\"spec\":{\"containers\":[{\"command\":[\"/usr/local/bin/kube-proxy\",\"--config=/var/lib/kube-proxy/config.conf\",\"--hostname-override=$(NODE_NAME)\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"registry.k8s.io/kube-proxy:v1.31.4\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"kube-proxy\",\"resources\":{},\"securityContext\":{\"privileged\":true},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/kube-proxy\",\"name\":\"kube-proxy\"},{\"mountPath\":\"/run/xtables.lock\",\"name\":\"xtables-lock\"},{\"mountPath\":\"/lib/modules\",\"name\":\"lib-modules\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":true,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-node-critical\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"kube-proxy\",\"serviceAccountName\":\"kube-proxy\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"operator\":\"Exists\"}],\"volumes\":[{\"configMap\":{\"defaultMode\":420,\"name\":\"kube-proxy\"},\"name\":\"kube-proxy\"},{\"hostPath\":{\"path\":\"/run/xtables.lock\",\"type\":\"FileOrCreate\"},\"name\":\"xtables-lock\"},{\"hostPath\":{\"path\":\"/lib/modules\",\"type\":\"\"},\"name\":\"lib-modules\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxSurge\":0,\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}"
+        "attribute": "{}"
       },
       "status": {
         "id": "",
-        "attribute": "{\"currentNumberScheduled\":1,\"desiredNumberScheduled\":1,\"numberAvailable\":1,\"numberMisscheduled\":0,\"numberReady\":1,\"observedGeneration\":1,\"updatedNumberScheduled\":1}"
+        "attribute": "{\"addresses\":[{\"address\":\"192.168.65.3\",\"type\":\"InternalIP\"},{\"address\":\"docker-desktop\",\"type\":\"Hostname\"}],\"allocatable\":{\"cpu\":\"8\",\"ephemeral-storage\":\"972990113820\",\"hugepages-1Gi\":\"0\",\"hugepages-2Mi\":\"0\",\"memory\":\"3742760Ki\",\"pods\":\"110\"},\"capacity\":{\"cpu\":\"8\",\"ephemeral-storage\":\"1055761844Ki\",\"hugepages-1Gi\":\"0\",\"hugepages-2Mi\":\"0\",\"memory\":\"3845160Ki\",\"pods\":\"110\"},\"conditions\":[{\"lastHeartbeatTime\":\"2025-03-24T20:24:55Z\",\"lastTransitionTime\":\"2025-03-18T17:15:44Z\",\"message\":\"kubelet has sufficient memory available\",\"reason\":\"KubeletHasSufficientMemory\",\"status\":\"False\",\"type\":\"MemoryPressure\"},{\"lastHeartbeatTime\":\"2025-03-24T20:24:55Z\",\"lastTransitionTime\":\"2025-03-18T17:15:44Z\",\"message\":\"kubelet has no disk pressure\",\"reason\":\"KubeletHasNoDiskPressure\",\"status\":\"False\",\"type\":\"DiskPressure\"},{\"lastHeartbeatTime\":\"2025-03-24T20:24:55Z\",\"lastTransitionTime\":\"2025-03-18T17:15:44Z\",\"message\":\"kubelet has sufficient PID available\",\"reason\":\"KubeletHasSufficientPID\",\"status\":\"False\",\"type\":\"PIDPressure\"},{\"lastHeartbeatTime\":\"2025-03-24T20:24:55Z\",\"lastTransitionTime\":\"2025-03-18T17:15:47Z\",\"message\":\"kubelet is posting ready status\",\"reason\":\"KubeletReady\",\"status\":\"True\",\"type\":\"Ready\"}],\"daemonEndpoints\":{\"kubeletEndpoint\":{\"Port\":10250}},\"images\":[{\"names\":[\"layer5/meshery@sha256:1fcd1cb027a52de730f7c3f6d1c1b5d7fe43a55e6d7af9bc900c9b854f6c06e8\",\"layer5/meshery:stable-latest\"],\"sizeBytes\":4040019267},{\"names\":[\"docker/desktop-kubernetes@sha256:1405239673efc7b3a6cf9ba07f5bc5f2dc3e5ed9b7b5ced8e499182fe42c9de6\",\"docker/desktop-kubernetes:kubernetes-v1.31.4-cni-v1.6.0-critools-v1.31.1-cri-dockerd-v0.3.15-1-debian\"],\"sizeBytes\":577160384},{\"names\":[\"nginx@sha256:124b44bfc9ccd1f3cedf4b592d4d1e8bddb78b51ec2ed5056c52d3692baebc19\",\"nginx:latest\"],\"sizeBytes\":278633684},{\"names\":[\"registry.k8s.io/etcd@sha256:c6a9d11cc5c04b114ccdef39a9265eeef818e3d02f5359be035ae784097fdec5\",\"registry.k8s.io/etcd:3.5.16-0\"],\"sizeBytes\":210966834},{\"names\":[\"registry.k8s.io/etcd@sha256:a6dc63e6e8cfa0307d7851762fa6b629afb18f28d8aa3fab5a6e91b4af60026a\",\"registry.k8s.io/etcd:3.5.15-0\"],\"sizeBytes\":208167967},{\"names\":[\"registry.k8s.io/kube-proxy@sha256:1739b3febca392035bf6edfe31efdfa55226be7b57389b2001ae357f7dcb99cf\",\"registry.k8s.io/kube-proxy:v1.31.4\"],\"sizeBytes\":125554111},{\"names\":[\"registry.k8s.io/kube-apiserver@sha256:ace6a943b058439bd6daeb74f152e7c36e6fc0b5e481cdff9364cd6ca0473e5e\",\"registry.k8s.io/kube-apiserver:v1.31.4\"],\"sizeBytes\":125480296},{\"names\":[\"registry.k8s.io/kube-controller-manager@sha256:4bd1d4a449e7a1a4f375bd7c71abf48a95f8949b38f725ded255077329f21f7b\",\"registry.k8s.io/kube-controller-manager:v1.31.4\"],\"sizeBytes\":117859442},{\"names\":[\"layer5/meshsync@sha256:62659ce5121175cc14227e51407ac8ef81a485dd0b9d4bcbbe0191f4d42da4ee\",\"layer5/meshsync:stable-latest\"],\"sizeBytes\":104905160},{\"names\":[\"layer5/meshery-operator@sha256:176bdd896fd17c256c5dd4bce25a6047a52bb599061e801a52a2168543ca3d91\",\"layer5/meshery-operator:stable-latest\"],\"sizeBytes\":104018275},{\"names\":[\"gcr.io/kubebuilder/kube-rbac-proxy@sha256:771a9a173e033a3ad8b46f5c00a7036eaa88c8d8d1fbd89217325168998113ea\",\"gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0\"],\"sizeBytes\":100669304},{\"names\":[\"registry.k8s.io/kube-scheduler@sha256:1a3081cb7d21763d22eb2c0781cc462d89f501ed523ad558dea1226f128fbfdd\",\"registry.k8s.io/kube-scheduler:v1.31.4\"],\"sizeBytes\":90792794},{\"names\":[\"registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e\",\"registry.k8s.io/coredns/coredns:v1.11.3\"],\"sizeBytes\":85058590},{\"names\":[\"docker/desktop-storage-provisioner@sha256:115d77efe6e256cefbcdf1d3292bede9339ef3952a2a83393cea217a3ffdef36\",\"docker/desktop-storage-provisioner:v2.0\"],\"sizeBytes\":59161250},{\"names\":[\"docker/desktop-vpnkit-controller@sha256:7ecf567ea07095f9af6ce2004055d4d37e4ee3bc19b553cce2f6c37ee9b916bf\",\"docker/desktop-vpnkit-controller:dc331cb22850be0cdd97c84a9cfecaf44a1afb6e\"],\"sizeBytes\":46994937},{\"names\":[\"nats@sha256:51ed1dcadcd928cbca6b4b2846491bd14667dca111ac63fdb001eef89cb9192f\",\"nats:2.8.2-alpine3.15\"],\"sizeBytes\":27219182},{\"names\":[\"nats@sha256:c2f85f32bf6692d477626ce4c159a54553c8e027b1e01ea26621071fc21fd155\",\"nats:latest\"],\"sizeBytes\":22740873},{\"names\":[\"connecteverything/nats-server-config-reloader@sha256:c5e1af9a7667ce15f036a8bb0984bb59472e5340faeb3cc314538885de21da9f\",\"connecteverything/nats-server-config-reloader:0.6.0\"],\"sizeBytes\":11039016},{\"names\":[\"registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a\",\"registry.k8s.io/pause:3.10\"],\"sizeBytes\":1059339}],\"nodeInfo\":{\"architecture\":\"amd64\",\"bootID\":\"487c23ee-470d-4be1-b8ad-4d279658672f\",\"containerRuntimeVersion\":\"docker://27.5.1\",\"kernelVersion\":\"6.12.5-linuxkit\",\"kubeProxyVersion\":\"v1.31.4\",\"kubeletVersion\":\"v1.31.4\",\"machineID\":\"a0d2d4602096483086fb22ed23466c7a\",\"operatingSystem\":\"linux\",\"osImage\":\"Docker Desktop\",\"systemUUID\":\"a0d2d4602096483086fb22ed23466c7a\"}}"
       },
       "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
       "pattern_resource": null,
       "component_metadata": null
+    },
+    {
+      "id": "",
+      "apiVersion": "meshery.io/v1alpha1",
+      "kind": "MeshSync",
+      "model": "",
+      "metadata": {
+        "id": "",
+        "name": "meshery-meshsync",
+        "namespace": "meshery",
+        "uid": "5c3e7c29-82aa-4c2f-9451-f0c7fa975575",
+        "resourceVersion": "96267",
+        "generation": 1,
+        "creationTimestamp": "2025-03-24T20:25:09Z",
+        "annotations": [
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "annotation",
+            "key": "kubectl.kubernetes.io/last-applied-configuration",
+            "value": "{\\\"apiVersion\\\":\\\"meshery.io/v1alpha1\\\",\\\"kind\\\":\\\"MeshSync\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"name\\\":\\\"meshery-meshsync\\\",\\\"namespace\\\":\\\"meshery\\\"},\\\"spec\\\":{\\\"broker\\\":{\\\"native\\\":{\\\"name\\\":\\\"meshery-broker\\\",\\\"namespace\\\":\\\"meshery\\\"}},\\\"size\\\":1,\\\"watch-list\\\":{\\\"data\\\":{\\\"whitelist\\\":\\\"[{\\\\\\\"Resource\\\\\\\":\\\\\\\"namespaces.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"configmaps.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"nodes.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"pods.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"services.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"deployments.v1.apps\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"statefulsets.v1.apps\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"daemonsets.v1.apps\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]}]\\\"}}}}\\n"
+          }
+        ],
+        "managedFields": "[{\"apiVersion\":\"meshery.io/v1alpha1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubectl.kubernetes.io/last-applied-configuration\":{}}},\"f:spec\":{\".\":{},\"f:broker\":{\".\":{},\"f:native\":{\".\":{},\"f:name\":{},\"f:namespace\":{}}},\"f:size\":{},\"f:watch-list\":{\".\":{},\"f:data\":{\".\":{},\"f:whitelist\":{}}}}},\"manager\":\"kubectl-client-side-apply\",\"operation\":\"Update\",\"time\":\"2025-03-24T20:25:09Z\"}]",
+        "cluster_id": ""
+      },
+      "spec": {
+        "id": "",
+        "attribute": "{\"broker\":{\"native\":{\"name\":\"meshery-broker\",\"namespace\":\"meshery\"}},\"size\":1,\"watch-list\":{\"data\":{\"whitelist\":\"[{\\\"Resource\\\":\\\"namespaces.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"configmaps.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"nodes.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"pods.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"services.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"deployments.v1.apps\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"statefulsets.v1.apps\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"daemonsets.v1.apps\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]}]\"}}}"
+      },
+      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
+      "pattern_resource": null,
+      "component_metadata": null
+    },
+    {
+      "id": "",
+      "apiVersion": "v1",
+      "kind": "Service",
+      "model": "",
+      "metadata": {
+        "id": "",
+        "name": "nginx",
+        "namespace": "test-snapshot",
+        "uid": "4247add6-295a-4bfe-877f-3350ac644a32",
+        "resourceVersion": "59487",
+        "creationTimestamp": "2025-03-23T19:14:17Z",
+        "labels": [
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "app",
+            "value": "nginx"
+          }
+        ],
+        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app\":{}}},\"f:spec\":{\"f:internalTrafficPolicy\":{},\"f:ports\":{\".\":{},\"k:{\\\"port\\\":80,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:port\":{},\"f:protocol\":{},\"f:targetPort\":{}}},\"f:selector\":{},\"f:sessionAffinity\":{},\"f:type\":{}}},\"manager\":\"kubectl-expose\",\"operation\":\"Update\",\"time\":\"2025-03-23T19:14:17Z\"}]",
+        "cluster_id": ""
+      },
+      "spec": {
+        "id": "",
+        "attribute": "{\"clusterIP\":\"10.96.54.209\",\"clusterIPs\":[\"10.96.54.209\"],\"internalTrafficPolicy\":\"Cluster\",\"ipFamilies\":[\"IPv4\"],\"ipFamilyPolicy\":\"SingleStack\",\"ports\":[{\"port\":80,\"protocol\":\"TCP\",\"targetPort\":80}],\"selector\":{\"app\":\"nginx\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}"
+      },
+      "status": {
+        "id": "",
+        "attribute": "{\"loadBalancer\":{}}"
+      },
+      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
+      "pattern_resource": null,
+      "component_metadata": {
+        "capabilities": {
+          "connection": true,
+          "urls": [
+            "http://10.96.54.209:80"
+          ]
+        }
+      }
     },
     {
       "id": "",
@@ -363,9 +458,9 @@
       "metadata": {
         "id": "",
         "name": "meshery",
-        "uid": "a41f7b0e-d95c-410b-af63-12d83932112d",
-        "resourceVersion": "67922",
-        "creationTimestamp": "2025-03-24T14:41:54Z",
+        "uid": "1b4b2bff-b8ef-471b-91ce-37b07ebc1df3",
+        "resourceVersion": "96261",
+        "creationTimestamp": "2025-03-24T20:25:07Z",
         "labels": [
           {
             "id": "",
@@ -384,7 +479,7 @@
             "value": "{\\\"apiVersion\\\":\\\"v1\\\",\\\"kind\\\":\\\"Namespace\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"name\\\":\\\"meshery\\\"}}\\n"
           }
         ],
-        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubectl.kubernetes.io/last-applied-configuration\":{}},\"f:labels\":{\".\":{},\"f:kubernetes.io/metadata.name\":{}}}},\"manager\":\"kubectl-client-side-apply\",\"operation\":\"Update\",\"time\":\"2025-03-24T14:41:54Z\"}]",
+        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubectl.kubernetes.io/last-applied-configuration\":{}},\"f:labels\":{\".\":{},\"f:kubernetes.io/metadata.name\":{}}}},\"manager\":\"kubectl-client-side-apply\",\"operation\":\"Update\",\"time\":\"2025-03-24T20:25:07Z\"}]",
         "cluster_id": ""
       },
       "spec": {
@@ -394,6 +489,52 @@
       "status": {
         "id": "",
         "attribute": "{\"phase\":\"Active\"}"
+      },
+      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
+      "pattern_resource": null,
+      "component_metadata": null
+    },
+    {
+      "id": "",
+      "apiVersion": "apps/v1",
+      "kind": "DaemonSet",
+      "model": "",
+      "metadata": {
+        "id": "",
+        "name": "kube-proxy",
+        "namespace": "kube-system",
+        "uid": "040b5a23-1587-45bd-9da9-435873502a65",
+        "resourceVersion": "62668",
+        "generation": 1,
+        "creationTimestamp": "2025-03-18T17:15:47Z",
+        "labels": [
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "k8s-app",
+            "value": "kube-proxy"
+          }
+        ],
+        "annotations": [
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "annotation",
+            "key": "deprecated.daemonset.template.generation",
+            "value": "1"
+          }
+        ],
+        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:deprecated.daemonset.template.generation\":{}},\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:containers\":{\"k:{\\\"name\\\":\\\"kube-proxy\\\"}\":{\".\":{},\"f:command\":{},\"f:env\":{\".\":{},\"k:{\\\"name\\\":\\\"NODE_NAME\\\"}\":{\".\":{},\"f:name\":{},\"f:valueFrom\":{\".\":{},\"f:fieldRef\":{}}}},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:name\":{},\"f:resources\":{},\"f:securityContext\":{\".\":{},\"f:privileged\":{}},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{},\"f:volumeMounts\":{\".\":{},\"k:{\\\"mountPath\\\":\\\"/lib/modules\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{},\"f:readOnly\":{}},\"k:{\\\"mountPath\\\":\\\"/run/xtables.lock\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{}},\"k:{\\\"mountPath\\\":\\\"/var/lib/kube-proxy\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{}}}}},\"f:dnsPolicy\":{},\"f:hostNetwork\":{},\"f:nodeSelector\":{},\"f:priorityClassName\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:serviceAccount\":{},\"f:serviceAccountName\":{},\"f:terminationGracePeriodSeconds\":{},\"f:tolerations\":{},\"f:volumes\":{\".\":{},\"k:{\\\"name\\\":\\\"kube-proxy\\\"}\":{\".\":{},\"f:configMap\":{\".\":{},\"f:defaultMode\":{},\"f:name\":{}},\"f:name\":{}},\"k:{\\\"name\\\":\\\"lib-modules\\\"}\":{\".\":{},\"f:hostPath\":{\".\":{},\"f:path\":{},\"f:type\":{}},\"f:name\":{}},\"k:{\\\"name\\\":\\\"xtables-lock\\\"}\":{\".\":{},\"f:hostPath\":{\".\":{},\"f:path\":{},\"f:type\":{}},\"f:name\":{}}}}},\"f:updateStrategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}}}},\"manager\":\"kubeadm\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:47Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:status\":{\"f:currentNumberScheduled\":{},\"f:desiredNumberScheduled\":{},\"f:numberAvailable\":{},\"f:numberReady\":{},\"f:observedGeneration\":{},\"f:updatedNumberScheduled\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T13:53:30Z\"}]",
+        "cluster_id": ""
+      },
+      "spec": {
+        "id": "",
+        "attribute": "{\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"k8s-app\":\"kube-proxy\"}},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"k8s-app\":\"kube-proxy\"}},\"spec\":{\"containers\":[{\"command\":[\"/usr/local/bin/kube-proxy\",\"--config=/var/lib/kube-proxy/config.conf\",\"--hostname-override=$(NODE_NAME)\"],\"env\":[{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"registry.k8s.io/kube-proxy:v1.31.4\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"kube-proxy\",\"resources\":{},\"securityContext\":{\"privileged\":true},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/kube-proxy\",\"name\":\"kube-proxy\"},{\"mountPath\":\"/run/xtables.lock\",\"name\":\"xtables-lock\"},{\"mountPath\":\"/lib/modules\",\"name\":\"lib-modules\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":true,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-node-critical\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"kube-proxy\",\"serviceAccountName\":\"kube-proxy\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"operator\":\"Exists\"}],\"volumes\":[{\"configMap\":{\"defaultMode\":420,\"name\":\"kube-proxy\"},\"name\":\"kube-proxy\"},{\"hostPath\":{\"path\":\"/run/xtables.lock\",\"type\":\"FileOrCreate\"},\"name\":\"xtables-lock\"},{\"hostPath\":{\"path\":\"/lib/modules\",\"type\":\"\"},\"name\":\"lib-modules\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxSurge\":0,\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}"
+      },
+      "status": {
+        "id": "",
+        "attribute": "{\"currentNumberScheduled\":1,\"desiredNumberScheduled\":1,\"numberAvailable\":1,\"numberMisscheduled\":0,\"numberReady\":1,\"observedGeneration\":1,\"updatedNumberScheduled\":1}"
       },
       "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
       "pattern_resource": null,
@@ -436,62 +577,24 @@
     },
     {
       "id": "",
-      "apiVersion": "v1",
-      "kind": "Node",
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
       "model": "",
       "metadata": {
         "id": "",
-        "name": "docker-desktop",
-        "uid": "a3c5e242-98f8-439e-bf98-7c48fb1add49",
-        "resourceVersion": "93422",
-        "creationTimestamp": "2025-03-18T17:15:44Z",
+        "name": "coredns",
+        "namespace": "kube-system",
+        "uid": "efe38438-6040-4b74-8c73-0bc55509d9be",
+        "resourceVersion": "62759",
+        "generation": 1,
+        "creationTimestamp": "2025-03-18T17:15:47Z",
         "labels": [
           {
             "id": "",
             "unique_id": "",
             "kind": "label",
-            "key": "beta.kubernetes.io/arch",
-            "value": "amd64"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "beta.kubernetes.io/os",
-            "value": "linux"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "kubernetes.io/arch",
-            "value": "amd64"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "kubernetes.io/hostname",
-            "value": "docker-desktop"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "kubernetes.io/os",
-            "value": "linux"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "node-role.kubernetes.io/control-plane"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "node.kubernetes.io/exclude-from-external-load-balancers"
+            "key": "k8s-app",
+            "value": "kube-dns"
           }
         ],
         "annotations": [
@@ -499,169 +602,24 @@
             "id": "",
             "unique_id": "",
             "kind": "annotation",
-            "key": "kubeadm.alpha.kubernetes.io/cri-socket",
-            "value": "unix:///var/run/cri-dockerd.sock"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "node.alpha.kubernetes.io/ttl",
-            "value": "0"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "volumes.kubernetes.io/controller-managed-attach-detach",
-            "value": "true"
+            "key": "deployment.kubernetes.io/revision",
+            "value": "1"
           }
         ],
-        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:volumes.kubernetes.io/controller-managed-attach-detach\":{}},\"f:labels\":{\".\":{},\"f:beta.kubernetes.io/arch\":{},\"f:beta.kubernetes.io/os\":{},\"f:kubernetes.io/arch\":{},\"f:kubernetes.io/hostname\":{},\"f:kubernetes.io/os\":{}}}},\"manager\":\"kubelet\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:44Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\"f:kubeadm.alpha.kubernetes.io/cri-socket\":{}},\"f:labels\":{\"f:node-role.kubernetes.io/control-plane\":{},\"f:node.kubernetes.io/exclude-from-external-load-balancers\":{}}}},\"manager\":\"kubeadm\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:46Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\"f:node.alpha.kubernetes.io/ttl\":{}}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:51Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:status\":{\"f:allocatable\":{\"f:memory\":{}},\"f:capacity\":{\"f:memory\":{}},\"f:conditions\":{\"k:{\\\"type\\\":\\\"DiskPressure\\\"}\":{\"f:lastHeartbeatTime\":{}},\"k:{\\\"type\\\":\\\"MemoryPressure\\\"}\":{\"f:lastHeartbeatTime\":{}},\"k:{\\\"type\\\":\\\"PIDPressure\\\"}\":{\"f:lastHeartbeatTime\":{}},\"k:{\\\"type\\\":\\\"Ready\\\"}\":{\"f:lastHeartbeatTime\":{},\"f:lastTransitionTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{}}},\"f:images\":{},\"f:nodeInfo\":{\"f:bootID\":{}}}},\"manager\":\"kubelet\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T20:01:24Z\"}]",
+        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:progressDeadlineSeconds\":{},\"f:replicas\":{},\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:strategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:affinity\":{\".\":{},\"f:podAntiAffinity\":{\".\":{},\"f:preferredDuringSchedulingIgnoredDuringExecution\":{}}},\"f:containers\":{\"k:{\\\"name\\\":\\\"coredns\\\"}\":{\".\":{},\"f:args\":{},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:livenessProbe\":{\".\":{},\"f:failureThreshold\":{},\"f:httpGet\":{\".\":{},\"f:path\":{},\"f:port\":{},\"f:scheme\":{}},\"f:initialDelaySeconds\":{},\"f:periodSeconds\":{},\"f:successThreshold\":{},\"f:timeoutSeconds\":{}},\"f:name\":{},\"f:ports\":{\".\":{},\"k:{\\\"containerPort\\\":53,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}},\"k:{\\\"containerPort\\\":53,\\\"protocol\\\":\\\"UDP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}},\"k:{\\\"containerPort\\\":9153,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}}},\"f:readinessProbe\":{\".\":{},\"f:failureThreshold\":{},\"f:httpGet\":{\".\":{},\"f:path\":{},\"f:port\":{},\"f:scheme\":{}},\"f:periodSeconds\":{},\"f:successThreshold\":{},\"f:timeoutSeconds\":{}},\"f:resources\":{\".\":{},\"f:limits\":{\".\":{},\"f:memory\":{}},\"f:requests\":{\".\":{},\"f:cpu\":{},\"f:memory\":{}}},\"f:securityContext\":{\".\":{},\"f:allowPrivilegeEscalation\":{},\"f:capabilities\":{\".\":{},\"f:add\":{},\"f:drop\":{}},\"f:readOnlyRootFilesystem\":{}},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{},\"f:volumeMounts\":{\".\":{},\"k:{\\\"mountPath\\\":\\\"/etc/coredns\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{},\"f:readOnly\":{}}}}},\"f:dnsPolicy\":{},\"f:nodeSelector\":{},\"f:priorityClassName\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:serviceAccount\":{},\"f:serviceAccountName\":{},\"f:terminationGracePeriodSeconds\":{},\"f:tolerations\":{},\"f:volumes\":{\".\":{},\"k:{\\\"name\\\":\\\"config-volume\\\"}\":{\".\":{},\"f:configMap\":{\".\":{},\"f:defaultMode\":{},\"f:items\":{},\"f:name\":{}},\"f:name\":{}}}}}}},\"manager\":\"kubeadm\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:47Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:deployment.kubernetes.io/revision\":{}}},\"f:status\":{\"f:availableReplicas\":{},\"f:conditions\":{\".\":{},\"k:{\\\"type\\\":\\\"Available\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Progressing\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}}},\"f:observedGeneration\":{},\"f:readyReplicas\":{},\"f:replicas\":{},\"f:updatedReplicas\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T13:53:35Z\"}]",
         "cluster_id": ""
       },
       "spec": {
         "id": "",
-        "attribute": "{}"
+        "attribute": "{\"progressDeadlineSeconds\":600,\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"k8s-app\":\"kube-dns\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":1},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"k8s-app\":\"kube-dns\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"k8s-app\",\"operator\":\"In\",\"values\":[\"kube-dns\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"args\":[\"-conf\",\"/etc/coredns/Corefile\"],\"image\":\"registry.k8s.io/coredns/coredns:v1.11.3\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/health\",\"port\":8080,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":60,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"coredns\",\"ports\":[{\"containerPort\":53,\"name\":\"dns\",\"protocol\":\"UDP\"},{\"containerPort\":53,\"name\":\"dns-tcp\",\"protocol\":\"TCP\"},{\"containerPort\":9153,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":8181,\"scheme\":\"HTTP\"},\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"memory\":\"170Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"70Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_BIND_SERVICE\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/etc/coredns\",\"name\":\"config-volume\",\"readOnly\":true}]}],\"dnsPolicy\":\"Default\",\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-cluster-critical\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"coredns\",\"serviceAccountName\":\"coredns\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"key\":\"CriticalAddonsOnly\",\"operator\":\"Exists\"},{\"effect\":\"NoSchedule\",\"key\":\"node-role.kubernetes.io/control-plane\"}],\"volumes\":[{\"configMap\":{\"defaultMode\":420,\"items\":[{\"key\":\"Corefile\",\"path\":\"Corefile\"}],\"name\":\"coredns\"},\"name\":\"config-volume\"}]}}}"
       },
       "status": {
         "id": "",
-        "attribute": "{\"addresses\":[{\"address\":\"192.168.65.3\",\"type\":\"InternalIP\"},{\"address\":\"docker-desktop\",\"type\":\"Hostname\"}],\"allocatable\":{\"cpu\":\"8\",\"ephemeral-storage\":\"972990113820\",\"hugepages-1Gi\":\"0\",\"hugepages-2Mi\":\"0\",\"memory\":\"3742760Ki\",\"pods\":\"110\"},\"capacity\":{\"cpu\":\"8\",\"ephemeral-storage\":\"1055761844Ki\",\"hugepages-1Gi\":\"0\",\"hugepages-2Mi\":\"0\",\"memory\":\"3845160Ki\",\"pods\":\"110\"},\"conditions\":[{\"lastHeartbeatTime\":\"2025-03-24T20:01:24Z\",\"lastTransitionTime\":\"2025-03-18T17:15:44Z\",\"message\":\"kubelet has sufficient memory available\",\"reason\":\"KubeletHasSufficientMemory\",\"status\":\"False\",\"type\":\"MemoryPressure\"},{\"lastHeartbeatTime\":\"2025-03-24T20:01:24Z\",\"lastTransitionTime\":\"2025-03-18T17:15:44Z\",\"message\":\"kubelet has no disk pressure\",\"reason\":\"KubeletHasNoDiskPressure\",\"status\":\"False\",\"type\":\"DiskPressure\"},{\"lastHeartbeatTime\":\"2025-03-24T20:01:24Z\",\"lastTransitionTime\":\"2025-03-18T17:15:44Z\",\"message\":\"kubelet has sufficient PID available\",\"reason\":\"KubeletHasSufficientPID\",\"status\":\"False\",\"type\":\"PIDPressure\"},{\"lastHeartbeatTime\":\"2025-03-24T20:01:24Z\",\"lastTransitionTime\":\"2025-03-18T17:15:47Z\",\"message\":\"kubelet is posting ready status\",\"reason\":\"KubeletReady\",\"status\":\"True\",\"type\":\"Ready\"}],\"daemonEndpoints\":{\"kubeletEndpoint\":{\"Port\":10250}},\"images\":[{\"names\":[\"layer5/meshery@sha256:1fcd1cb027a52de730f7c3f6d1c1b5d7fe43a55e6d7af9bc900c9b854f6c06e8\",\"layer5/meshery:stable-latest\"],\"sizeBytes\":4040019267},{\"names\":[\"docker/desktop-kubernetes@sha256:1405239673efc7b3a6cf9ba07f5bc5f2dc3e5ed9b7b5ced8e499182fe42c9de6\",\"docker/desktop-kubernetes:kubernetes-v1.31.4-cni-v1.6.0-critools-v1.31.1-cri-dockerd-v0.3.15-1-debian\"],\"sizeBytes\":577160384},{\"names\":[\"nginx@sha256:124b44bfc9ccd1f3cedf4b592d4d1e8bddb78b51ec2ed5056c52d3692baebc19\",\"nginx:latest\"],\"sizeBytes\":278633684},{\"names\":[\"registry.k8s.io/etcd@sha256:c6a9d11cc5c04b114ccdef39a9265eeef818e3d02f5359be035ae784097fdec5\",\"registry.k8s.io/etcd:3.5.16-0\"],\"sizeBytes\":210966834},{\"names\":[\"registry.k8s.io/etcd@sha256:a6dc63e6e8cfa0307d7851762fa6b629afb18f28d8aa3fab5a6e91b4af60026a\",\"registry.k8s.io/etcd:3.5.15-0\"],\"sizeBytes\":208167967},{\"names\":[\"registry.k8s.io/kube-proxy@sha256:1739b3febca392035bf6edfe31efdfa55226be7b57389b2001ae357f7dcb99cf\",\"registry.k8s.io/kube-proxy:v1.31.4\"],\"sizeBytes\":125554111},{\"names\":[\"registry.k8s.io/kube-apiserver@sha256:ace6a943b058439bd6daeb74f152e7c36e6fc0b5e481cdff9364cd6ca0473e5e\",\"registry.k8s.io/kube-apiserver:v1.31.4\"],\"sizeBytes\":125480296},{\"names\":[\"registry.k8s.io/kube-controller-manager@sha256:4bd1d4a449e7a1a4f375bd7c71abf48a95f8949b38f725ded255077329f21f7b\",\"registry.k8s.io/kube-controller-manager:v1.31.4\"],\"sizeBytes\":117859442},{\"names\":[\"layer5/meshsync@sha256:62659ce5121175cc14227e51407ac8ef81a485dd0b9d4bcbbe0191f4d42da4ee\",\"layer5/meshsync:stable-latest\"],\"sizeBytes\":104905160},{\"names\":[\"layer5/meshery-operator@sha256:176bdd896fd17c256c5dd4bce25a6047a52bb599061e801a52a2168543ca3d91\",\"layer5/meshery-operator:stable-latest\"],\"sizeBytes\":104018275},{\"names\":[\"gcr.io/kubebuilder/kube-rbac-proxy@sha256:771a9a173e033a3ad8b46f5c00a7036eaa88c8d8d1fbd89217325168998113ea\",\"gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0\"],\"sizeBytes\":100669304},{\"names\":[\"registry.k8s.io/kube-scheduler@sha256:1a3081cb7d21763d22eb2c0781cc462d89f501ed523ad558dea1226f128fbfdd\",\"registry.k8s.io/kube-scheduler:v1.31.4\"],\"sizeBytes\":90792794},{\"names\":[\"registry.k8s.io/coredns/coredns@sha256:9caabbf6238b189a65d0d6e6ac138de60d6a1c419e5a341fbbb7c78382559c6e\",\"registry.k8s.io/coredns/coredns:v1.11.3\"],\"sizeBytes\":85058590},{\"names\":[\"docker/desktop-storage-provisioner@sha256:115d77efe6e256cefbcdf1d3292bede9339ef3952a2a83393cea217a3ffdef36\",\"docker/desktop-storage-provisioner:v2.0\"],\"sizeBytes\":59161250},{\"names\":[\"docker/desktop-vpnkit-controller@sha256:7ecf567ea07095f9af6ce2004055d4d37e4ee3bc19b553cce2f6c37ee9b916bf\",\"docker/desktop-vpnkit-controller:dc331cb22850be0cdd97c84a9cfecaf44a1afb6e\"],\"sizeBytes\":46994937},{\"names\":[\"nats@sha256:51ed1dcadcd928cbca6b4b2846491bd14667dca111ac63fdb001eef89cb9192f\",\"nats:2.8.2-alpine3.15\"],\"sizeBytes\":27219182},{\"names\":[\"nats@sha256:c2f85f32bf6692d477626ce4c159a54553c8e027b1e01ea26621071fc21fd155\",\"nats:latest\"],\"sizeBytes\":22740873},{\"names\":[\"connecteverything/nats-server-config-reloader@sha256:c5e1af9a7667ce15f036a8bb0984bb59472e5340faeb3cc314538885de21da9f\",\"connecteverything/nats-server-config-reloader:0.6.0\"],\"sizeBytes\":11039016},{\"names\":[\"registry.k8s.io/pause@sha256:ee6521f290b2168b6e0935a181d4cff9be1ac3f505666ef0e3c98fae8199917a\",\"registry.k8s.io/pause:3.10\"],\"sizeBytes\":1059339}],\"nodeInfo\":{\"architecture\":\"amd64\",\"bootID\":\"487c23ee-470d-4be1-b8ad-4d279658672f\",\"containerRuntimeVersion\":\"docker://27.5.1\",\"kernelVersion\":\"6.12.5-linuxkit\",\"kubeProxyVersion\":\"v1.31.4\",\"kubeletVersion\":\"v1.31.4\",\"machineID\":\"a0d2d4602096483086fb22ed23466c7a\",\"operatingSystem\":\"linux\",\"osImage\":\"Docker Desktop\",\"systemUUID\":\"a0d2d4602096483086fb22ed23466c7a\"}}"
+        "attribute": "{\"availableReplicas\":2,\"conditions\":[{\"lastTransitionTime\":\"2025-03-20T20:31:47Z\",\"lastUpdateTime\":\"2025-03-20T20:31:47Z\",\"message\":\"ReplicaSet \\\"coredns-7c65d6cfc9\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"},{\"lastTransitionTime\":\"2025-03-24T13:53:31Z\",\"lastUpdateTime\":\"2025-03-24T13:53:31Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"}],\"observedGeneration\":1,\"readyReplicas\":2,\"replicas\":2,\"updatedReplicas\":2}"
       },
       "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
       "pattern_resource": null,
       "component_metadata": null
-    },
-    {
-      "id": "",
-      "apiVersion": "v1",
-      "kind": "Service",
-      "model": "",
-      "metadata": {
-        "id": "",
-        "name": "meshery",
-        "namespace": "meshery",
-        "uid": "4451059d-9f12-45cf-81c0-fb4381ace5fb",
-        "resourceVersion": "93119",
-        "creationTimestamp": "2025-03-24T19:57:51Z",
-        "labels": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/instance",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/managed-by",
-            "value": "Helm"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/name",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/version",
-            "value": "v0.8.51"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "helm.sh/chart",
-            "value": "meshery-v0.8.51"
-          }
-        ],
-        "annotations": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "meta.helm.sh/release-name",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "meta.helm.sh/release-namespace",
-            "value": "meshery"
-          }
-        ],
-        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:status\":{\"f:loadBalancer\":{\"f:ingress\":{}}}},\"manager\":\"kube-vpnkit-forwarder\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T19:57:51Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:meta.helm.sh/release-name\":{},\"f:meta.helm.sh/release-namespace\":{}},\"f:labels\":{\".\":{},\"f:app.kubernetes.io/instance\":{},\"f:app.kubernetes.io/managed-by\":{},\"f:app.kubernetes.io/name\":{},\"f:app.kubernetes.io/version\":{},\"f:helm.sh/chart\":{}}},\"f:spec\":{\"f:allocateLoadBalancerNodePorts\":{},\"f:externalTrafficPolicy\":{},\"f:internalTrafficPolicy\":{},\"f:ports\":{\".\":{},\"k:{\\\"port\\\":9081,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:name\":{},\"f:port\":{},\"f:protocol\":{},\"f:targetPort\":{}}},\"f:selector\":{},\"f:sessionAffinity\":{},\"f:type\":{}}},\"manager\":\"mesheryctl\",\"operation\":\"Update\",\"time\":\"2025-03-24T19:57:51Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"allocateLoadBalancerNodePorts\":true,\"clusterIP\":\"10.108.230.124\",\"clusterIPs\":[\"10.108.230.124\"],\"externalTrafficPolicy\":\"Cluster\",\"internalTrafficPolicy\":\"Cluster\",\"ipFamilies\":[\"IPv4\"],\"ipFamilyPolicy\":\"SingleStack\",\"ports\":[{\"name\":\"http\",\"nodePort\":32424,\"port\":9081,\"protocol\":\"TCP\",\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/instance\":\"meshery\",\"app.kubernetes.io/name\":\"meshery\"},\"sessionAffinity\":\"None\",\"type\":\"LoadBalancer\"}"
-      },
-      "status": {
-        "id": "",
-        "attribute": "{\"loadBalancer\":{\"ingress\":[{\"hostname\":\"localhost\"}]}}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": {
-        "capabilities": {
-          "connection": true,
-          "urls": [
-            "http://localhost:9081",
-            "http://10.108.230.124:9081"
-          ]
-        }
-      }
-    },
-    {
-      "id": "",
-      "apiVersion": "v1",
-      "kind": "Service",
-      "model": "",
-      "metadata": {
-        "id": "",
-        "name": "nginx",
-        "namespace": "test-snapshot",
-        "uid": "4247add6-295a-4bfe-877f-3350ac644a32",
-        "resourceVersion": "59487",
-        "creationTimestamp": "2025-03-23T19:14:17Z",
-        "labels": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app",
-            "value": "nginx"
-          }
-        ],
-        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app\":{}}},\"f:spec\":{\"f:internalTrafficPolicy\":{},\"f:ports\":{\".\":{},\"k:{\\\"port\\\":80,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:port\":{},\"f:protocol\":{},\"f:targetPort\":{}}},\"f:selector\":{},\"f:sessionAffinity\":{},\"f:type\":{}}},\"manager\":\"kubectl-expose\",\"operation\":\"Update\",\"time\":\"2025-03-23T19:14:17Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"clusterIP\":\"10.96.54.209\",\"clusterIPs\":[\"10.96.54.209\"],\"internalTrafficPolicy\":\"Cluster\",\"ipFamilies\":[\"IPv4\"],\"ipFamilyPolicy\":\"SingleStack\",\"ports\":[{\"port\":80,\"protocol\":\"TCP\",\"targetPort\":80}],\"selector\":{\"app\":\"nginx\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}"
-      },
-      "status": {
-        "id": "",
-        "attribute": "{\"loadBalancer\":{}}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": {
-        "capabilities": {
-          "connection": true,
-          "urls": [
-            "http://10.96.54.209:80"
-          ]
-        }
-      }
     },
     {
       "id": "",
@@ -691,6 +649,52 @@
       "pattern_resource": null,
       "component_metadata": null,
       "data": "{\"ca.crt\":\"-----BEGIN CERTIFICATE-----\\nMIIDBTCCAe2gAwIBAgIIZ5dnkClTgb0wDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE\\nAxMKa3ViZXJuZXRlczAeFw0yNTAzMTgxNzA2MzVaFw0zNTAzMTYxNzA2MzVaMBUx\\nEzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\\nAoIBAQDD7UpNvEeXgQM+jr2HawrAqg2ZK8yaqRS5HoYzUm+XI6sKO4e6TFVdUbSU\\nHCvv2jnPpuriKMgToe1ysE9OGAnFH5iM51lluERYzizX9bYdMTJkvXJENn+vvseJ\\nSd/4nU/Z94d5bGlmmr234OAjdfLqdzMAYxkYBcs75aBDwblDX8j9YdTWTduPol9R\\nj9ctvubtQ0Jcisl0MZmCezSiQTs4soqhk15C16bEfHPyEvOfvz7ALsZfymGL2L5g\\nQWC9KoGNg7wVrAVk2qIQ6oORllfXhDoOFUDQiP+JmbmLz9zbZM6H8XCr/gjN9xQ8\\nmNH4OTR7HXCdm4/7hhUNi2zBZjwpAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP\\nBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTpr7C0jzOH407ql3ShPIagHiAbRTAV\\nBgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQB6zkFyS6NB\\nH6ofbTMiSuBFfior7mnxfRIFO5ECJtGv4JvRMxnBZRS2vgA1BWMprf48JGoTsJmZ\\nQ1TKspQNtQut369TGlyJPQSnj2s3xhFLBndhykJNW7XsqdR+NgHT+/Q8+jFJzct/\\nU1quIZywfT3vvoHLlf6l5ajg0L5RctEvSeVdQ1h1h5EWb0FSOF2pbKGHA/m8FoUl\\n/vqnLrcfYIEd+BNqsruU/9h6DML+y6cqYVwUF9SBzmmFB73FfKb1v6TndcDWhDZN\\ngUrEDS4ym7gbC1kv/WpOPzMUwNVRch/Ax1nRPJFvzxgJtZuVMay++/D0IM8YQhY7\\nH8ddb4uewUeO\\n-----END CERTIFICATE-----\\n\"}"
+    },
+    {
+      "id": "",
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "model": "",
+      "metadata": {
+        "id": "",
+        "name": "nginx",
+        "namespace": "test-snapshot",
+        "uid": "2a245f2c-b68d-46b5-8da7-3610b70e3fcb",
+        "resourceVersion": "65688",
+        "generation": 1,
+        "creationTimestamp": "2025-03-23T19:14:17Z",
+        "labels": [
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "label",
+            "key": "app",
+            "value": "nginx"
+          }
+        ],
+        "annotations": [
+          {
+            "id": "",
+            "unique_id": "",
+            "kind": "annotation",
+            "key": "deployment.kubernetes.io/revision",
+            "value": "1"
+          }
+        ],
+        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app\":{}}},\"f:spec\":{\"f:progressDeadlineSeconds\":{},\"f:replicas\":{},\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:strategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app\":{}}},\"f:spec\":{\"f:containers\":{\"k:{\\\"name\\\":\\\"nginx\\\"}\":{\".\":{},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:name\":{},\"f:resources\":{},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{}}},\"f:dnsPolicy\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:terminationGracePeriodSeconds\":{}}}}},\"manager\":\"kubectl-create\",\"operation\":\"Update\",\"time\":\"2025-03-23T19:14:17Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:deployment.kubernetes.io/revision\":{}}},\"f:status\":{\"f:availableReplicas\":{},\"f:conditions\":{\".\":{},\"k:{\\\"type\\\":\\\"Available\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Progressing\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}}},\"f:observedGeneration\":{},\"f:readyReplicas\":{},\"f:replicas\":{},\"f:updatedReplicas\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T14:22:38Z\"}]",
+        "cluster_id": ""
+      },
+      "spec": {
+        "id": "",
+        "attribute": "{\"progressDeadlineSeconds\":600,\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"nginx\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app\":\"nginx\"}},\"spec\":{\"containers\":[{\"image\":\"nginx\",\"imagePullPolicy\":\"Always\",\"name\":\"nginx\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\"}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"terminationGracePeriodSeconds\":30}}}"
+      },
+      "status": {
+        "id": "",
+        "attribute": "{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2025-03-23T19:14:17Z\",\"lastUpdateTime\":\"2025-03-23T19:14:32Z\",\"message\":\"ReplicaSet \\\"nginx-676b6c5bbc\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"},{\"lastTransitionTime\":\"2025-03-24T14:22:38Z\",\"lastUpdateTime\":\"2025-03-24T14:22:38Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"}],\"observedGeneration\":1,\"readyReplicas\":1,\"replicas\":1,\"updatedReplicas\":1}"
+      },
+      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
+      "pattern_resource": null,
+      "component_metadata": null
     },
     {
       "id": "",
@@ -740,52 +744,6 @@
       "pattern_resource": null,
       "component_metadata": null,
       "data": "{\"kubeconfig\":\"apiVersion: v1\\nclusters:\\n- cluster:\\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJWjVkbmtDbFRnYjB3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TlRBek1UZ3hOekEyTXpWYUZ3MHpOVEF6TVRZeE56QTJNelZhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUUREN1VwTnZFZVhnUU0ranIySGF3ckFxZzJaSzh5YXFSUzVIb1l6VW0rWEk2c0tPNGU2VEZWZFViU1UKSEN2djJqblBwdXJpS01nVG9lMXlzRTlPR0FuRkg1aU01MWxsdUVSWXppelg5YllkTVRKa3ZYSkVObit2dnNlSgpTZC80blUvWjk0ZDViR2xtbXIyMzRPQWpkZkxxZHpNQVl4a1lCY3M3NWFCRHdibERYOGo5WWRUV1RkdVBvbDlSCmo5Y3R2dWJ0UTBKY2lzbDBNWm1DZXpTaVFUczRzb3FoazE1QzE2YkVmSFB5RXZPZnZ6N0FMc1pmeW1HTDJMNWcKUVdDOUtvR05nN3dWckFWazJxSVE2b09SbGxmWGhEb09GVURRaVArSm1ibUx6OXpiWk02SDhYQ3IvZ2pOOXhROAptTkg0T1RSN0hYQ2RtNC83aGhVTmkyekJaandwQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJUcHI3QzBqek9INDA3cWwzU2hQSWFnSGlBYlJUQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQjZ6a0Z5UzZOQgpINm9mYlRNaVN1QkZmaW9yN21ueGZSSUZPNUVDSnRHdjRKdlJNeG5CWlJTMnZnQTFCV01wcmY0OEpHb1RzSm1aClExVEtzcFFOdFF1dDM2OVRHbHlKUFFTbmoyczN4aEZMQm5kaHlrSk5XN1hzcWRSK05nSFQrL1E4K2pGSnpjdC8KVTFxdUlaeXdmVDN2dm9ITGxmNmw1YWpnMEw1UmN0RXZTZVZkUTFoMWg1RVdiMEZTT0YycGJLR0hBL204Rm9VbAovdnFuTHJjZllJRWQrQk5xc3J1VS85aDZETUwreTZjcVlWd1VGOVNCem1tRkI3M0ZmS2IxdjZUbmRjRFdoRFpOCmdVckVEUzR5bTdnYkMxa3YvV3BPUHpNVXdOVlJjaC9BeDFuUlBKRnZ6eGdKdFp1Vk1heSsrL0QwSU04WVFoWTcKSDhkZGI0dWV3VWVPCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K\\n    server: https://kubernetes.docker.internal:6443\\n  name: \\\"\\\"\\ncontexts: null\\ncurrent-context: \\\"\\\"\\nkind: Config\\npreferences: {}\\nusers: null\\n\"}"
-    },
-    {
-      "id": "",
-      "apiVersion": "apps/v1",
-      "kind": "Deployment",
-      "model": "",
-      "metadata": {
-        "id": "",
-        "name": "coredns",
-        "namespace": "kube-system",
-        "uid": "efe38438-6040-4b74-8c73-0bc55509d9be",
-        "resourceVersion": "62759",
-        "generation": 1,
-        "creationTimestamp": "2025-03-18T17:15:47Z",
-        "labels": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "k8s-app",
-            "value": "kube-dns"
-          }
-        ],
-        "annotations": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "deployment.kubernetes.io/revision",
-            "value": "1"
-          }
-        ],
-        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:progressDeadlineSeconds\":{},\"f:replicas\":{},\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:strategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:k8s-app\":{}}},\"f:spec\":{\"f:affinity\":{\".\":{},\"f:podAntiAffinity\":{\".\":{},\"f:preferredDuringSchedulingIgnoredDuringExecution\":{}}},\"f:containers\":{\"k:{\\\"name\\\":\\\"coredns\\\"}\":{\".\":{},\"f:args\":{},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:livenessProbe\":{\".\":{},\"f:failureThreshold\":{},\"f:httpGet\":{\".\":{},\"f:path\":{},\"f:port\":{},\"f:scheme\":{}},\"f:initialDelaySeconds\":{},\"f:periodSeconds\":{},\"f:successThreshold\":{},\"f:timeoutSeconds\":{}},\"f:name\":{},\"f:ports\":{\".\":{},\"k:{\\\"containerPort\\\":53,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}},\"k:{\\\"containerPort\\\":53,\\\"protocol\\\":\\\"UDP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}},\"k:{\\\"containerPort\\\":9153,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}}},\"f:readinessProbe\":{\".\":{},\"f:failureThreshold\":{},\"f:httpGet\":{\".\":{},\"f:path\":{},\"f:port\":{},\"f:scheme\":{}},\"f:periodSeconds\":{},\"f:successThreshold\":{},\"f:timeoutSeconds\":{}},\"f:resources\":{\".\":{},\"f:limits\":{\".\":{},\"f:memory\":{}},\"f:requests\":{\".\":{},\"f:cpu\":{},\"f:memory\":{}}},\"f:securityContext\":{\".\":{},\"f:allowPrivilegeEscalation\":{},\"f:capabilities\":{\".\":{},\"f:add\":{},\"f:drop\":{}},\"f:readOnlyRootFilesystem\":{}},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{},\"f:volumeMounts\":{\".\":{},\"k:{\\\"mountPath\\\":\\\"/etc/coredns\\\"}\":{\".\":{},\"f:mountPath\":{},\"f:name\":{},\"f:readOnly\":{}}}}},\"f:dnsPolicy\":{},\"f:nodeSelector\":{},\"f:priorityClassName\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:serviceAccount\":{},\"f:serviceAccountName\":{},\"f:terminationGracePeriodSeconds\":{},\"f:tolerations\":{},\"f:volumes\":{\".\":{},\"k:{\\\"name\\\":\\\"config-volume\\\"}\":{\".\":{},\"f:configMap\":{\".\":{},\"f:defaultMode\":{},\"f:items\":{},\"f:name\":{}},\"f:name\":{}}}}}}},\"manager\":\"kubeadm\",\"operation\":\"Update\",\"time\":\"2025-03-18T17:15:47Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:deployment.kubernetes.io/revision\":{}}},\"f:status\":{\"f:availableReplicas\":{},\"f:conditions\":{\".\":{},\"k:{\\\"type\\\":\\\"Available\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Progressing\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}}},\"f:observedGeneration\":{},\"f:readyReplicas\":{},\"f:replicas\":{},\"f:updatedReplicas\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T13:53:35Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"progressDeadlineSeconds\":600,\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"k8s-app\":\"kube-dns\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":1},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"k8s-app\":\"kube-dns\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"k8s-app\",\"operator\":\"In\",\"values\":[\"kube-dns\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"args\":[\"-conf\",\"/etc/coredns/Corefile\"],\"image\":\"registry.k8s.io/coredns/coredns:v1.11.3\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/health\",\"port\":8080,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":60,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"coredns\",\"ports\":[{\"containerPort\":53,\"name\":\"dns\",\"protocol\":\"UDP\"},{\"containerPort\":53,\"name\":\"dns-tcp\",\"protocol\":\"TCP\"},{\"containerPort\":9153,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":8181,\"scheme\":\"HTTP\"},\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"memory\":\"170Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"70Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_BIND_SERVICE\"],\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/etc/coredns\",\"name\":\"config-volume\",\"readOnly\":true}]}],\"dnsPolicy\":\"Default\",\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-cluster-critical\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"coredns\",\"serviceAccountName\":\"coredns\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"key\":\"CriticalAddonsOnly\",\"operator\":\"Exists\"},{\"effect\":\"NoSchedule\",\"key\":\"node-role.kubernetes.io/control-plane\"}],\"volumes\":[{\"configMap\":{\"defaultMode\":420,\"items\":[{\"key\":\"Corefile\",\"path\":\"Corefile\"}],\"name\":\"coredns\"},\"name\":\"config-volume\"}]}}}"
-      },
-      "status": {
-        "id": "",
-        "attribute": "{\"availableReplicas\":2,\"conditions\":[{\"lastTransitionTime\":\"2025-03-20T20:31:47Z\",\"lastUpdateTime\":\"2025-03-20T20:31:47Z\",\"message\":\"ReplicaSet \\\"coredns-7c65d6cfc9\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"},{\"lastTransitionTime\":\"2025-03-24T13:53:31Z\",\"lastUpdateTime\":\"2025-03-24T13:53:31Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"}],\"observedGeneration\":1,\"readyReplicas\":2,\"replicas\":2,\"updatedReplicas\":2}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": null
     },
     {
       "id": "",
@@ -878,94 +836,6 @@
     },
     {
       "id": "",
-      "apiVersion": "apps/v1",
-      "kind": "Deployment",
-      "model": "",
-      "metadata": {
-        "id": "",
-        "name": "meshery",
-        "namespace": "meshery",
-        "uid": "454e000b-0a8d-4c6d-b10f-af90d6784900",
-        "resourceVersion": "93146",
-        "generation": 1,
-        "creationTimestamp": "2025-03-24T19:57:51Z",
-        "labels": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/instance",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/managed-by",
-            "value": "Helm"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/name",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/version",
-            "value": "v0.8.51"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "helm.sh/chart",
-            "value": "meshery-v0.8.51"
-          }
-        ],
-        "annotations": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "deployment.kubernetes.io/revision",
-            "value": "1"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "meta.helm.sh/release-name",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "meta.helm.sh/release-namespace",
-            "value": "meshery"
-          }
-        ],
-        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:meta.helm.sh/release-name\":{},\"f:meta.helm.sh/release-namespace\":{}},\"f:labels\":{\".\":{},\"f:app.kubernetes.io/instance\":{},\"f:app.kubernetes.io/managed-by\":{},\"f:app.kubernetes.io/name\":{},\"f:app.kubernetes.io/version\":{},\"f:helm.sh/chart\":{}}},\"f:spec\":{\"f:progressDeadlineSeconds\":{},\"f:replicas\":{},\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:strategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app.kubernetes.io/instance\":{},\"f:app.kubernetes.io/name\":{}}},\"f:spec\":{\"f:containers\":{\"k:{\\\"name\\\":\\\"meshery\\\"}\":{\".\":{},\"f:env\":{\".\":{},\"k:{\\\"name\\\":\\\"ADAPTER_URLS\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"EVENT\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"KEYS_PATH\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"MESHERY_SERVER_CALLBACK_URL\\\"}\":{\".\":{},\"f:name\":{}},\"k:{\\\"name\\\":\\\"PROVIDER\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"PROVIDER_BASE_URLS\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}}},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:name\":{},\"f:ports\":{\".\":{},\"k:{\\\"containerPort\\\":8080,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}}},\"f:resources\":{},\"f:securityContext\":{},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{}}},\"f:dnsPolicy\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:serviceAccount\":{},\"f:serviceAccountName\":{},\"f:terminationGracePeriodSeconds\":{}}}}},\"manager\":\"mesheryctl\",\"operation\":\"Update\",\"time\":\"2025-03-24T19:57:51Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\"f:deployment.kubernetes.io/revision\":{}}},\"f:status\":{\"f:availableReplicas\":{},\"f:conditions\":{\".\":{},\"k:{\\\"type\\\":\\\"Available\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Progressing\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}}},\"f:observedGeneration\":{},\"f:readyReplicas\":{},\"f:replicas\":{},\"f:updatedReplicas\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T19:57:56Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"progressDeadlineSeconds\":600,\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"meshery\",\"app.kubernetes.io/name\":\"meshery\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app.kubernetes.io/instance\":\"meshery\",\"app.kubernetes.io/name\":\"meshery\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"ADAPTER_URLS\",\"value\":\"meshery-istio:10000 meshery-linkerd:10001 meshery-consul:10002 meshery-kuma:10007 meshery-nginx-sm:10010 meshery-nsm:10004 meshery-app-mesh:10005 meshery-traefik-mesh:10006 meshery-cilium:10012\"},{\"name\":\"EVENT\",\"value\":\"mesheryLocal\"},{\"name\":\"KEYS_PATH\",\"value\":\"../../server/permissions/keys.csv\"},{\"name\":\"MESHERY_SERVER_CALLBACK_URL\"},{\"name\":\"PROVIDER\",\"value\":\"Meshery\"},{\"name\":\"PROVIDER_BASE_URLS\",\"value\":\"https://cloud.layer5.io\"}],\"image\":\"layer5/meshery:stable-latest\",\"imagePullPolicy\":\"Always\",\"name\":\"meshery\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"}],\"resources\":{},\"securityContext\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\"}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"meshery-server\",\"serviceAccountName\":\"meshery-server\",\"terminationGracePeriodSeconds\":30}}}"
-      },
-      "status": {
-        "id": "",
-        "attribute": "{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2025-03-24T19:57:56Z\",\"lastUpdateTime\":\"2025-03-24T19:57:56Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"},{\"lastTransitionTime\":\"2025-03-24T19:57:51Z\",\"lastUpdateTime\":\"2025-03-24T19:57:56Z\",\"message\":\"ReplicaSet \\\"meshery-84d986dbf5\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"}],\"observedGeneration\":1,\"readyReplicas\":1,\"replicas\":1,\"updatedReplicas\":1}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": null
-    },
-    {
-      "id": "",
       "apiVersion": "v1",
       "kind": "ConfigMap",
       "model": "",
@@ -1021,52 +891,6 @@
       "pattern_resource": null,
       "component_metadata": null,
       "data": "{\"ca.crt\":\"-----BEGIN CERTIFICATE-----\\nMIIDBTCCAe2gAwIBAgIIZ5dnkClTgb0wDQYJKoZIhvcNAQELBQAwFTETMBEGA1UE\\nAxMKa3ViZXJuZXRlczAeFw0yNTAzMTgxNzA2MzVaFw0zNTAzMTYxNzA2MzVaMBUx\\nEzARBgNVBAMTCmt1YmVybmV0ZXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK\\nAoIBAQDD7UpNvEeXgQM+jr2HawrAqg2ZK8yaqRS5HoYzUm+XI6sKO4e6TFVdUbSU\\nHCvv2jnPpuriKMgToe1ysE9OGAnFH5iM51lluERYzizX9bYdMTJkvXJENn+vvseJ\\nSd/4nU/Z94d5bGlmmr234OAjdfLqdzMAYxkYBcs75aBDwblDX8j9YdTWTduPol9R\\nj9ctvubtQ0Jcisl0MZmCezSiQTs4soqhk15C16bEfHPyEvOfvz7ALsZfymGL2L5g\\nQWC9KoGNg7wVrAVk2qIQ6oORllfXhDoOFUDQiP+JmbmLz9zbZM6H8XCr/gjN9xQ8\\nmNH4OTR7HXCdm4/7hhUNi2zBZjwpAgMBAAGjWTBXMA4GA1UdDwEB/wQEAwICpDAP\\nBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTpr7C0jzOH407ql3ShPIagHiAbRTAV\\nBgNVHREEDjAMggprdWJlcm5ldGVzMA0GCSqGSIb3DQEBCwUAA4IBAQB6zkFyS6NB\\nH6ofbTMiSuBFfior7mnxfRIFO5ECJtGv4JvRMxnBZRS2vgA1BWMprf48JGoTsJmZ\\nQ1TKspQNtQut369TGlyJPQSnj2s3xhFLBndhykJNW7XsqdR+NgHT+/Q8+jFJzct/\\nU1quIZywfT3vvoHLlf6l5ajg0L5RctEvSeVdQ1h1h5EWb0FSOF2pbKGHA/m8FoUl\\n/vqnLrcfYIEd+BNqsruU/9h6DML+y6cqYVwUF9SBzmmFB73FfKb1v6TndcDWhDZN\\ngUrEDS4ym7gbC1kv/WpOPzMUwNVRch/Ax1nRPJFvzxgJtZuVMay++/D0IM8YQhY7\\nH8ddb4uewUeO\\n-----END CERTIFICATE-----\\n\"}"
-    },
-    {
-      "id": "",
-      "apiVersion": "apps/v1",
-      "kind": "Deployment",
-      "model": "",
-      "metadata": {
-        "id": "",
-        "name": "nginx",
-        "namespace": "test-snapshot",
-        "uid": "2a245f2c-b68d-46b5-8da7-3610b70e3fcb",
-        "resourceVersion": "65688",
-        "generation": 1,
-        "creationTimestamp": "2025-03-23T19:14:17Z",
-        "labels": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app",
-            "value": "nginx"
-          }
-        ],
-        "annotations": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "annotation",
-            "key": "deployment.kubernetes.io/revision",
-            "value": "1"
-          }
-        ],
-        "managedFields": "[{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app\":{}}},\"f:spec\":{\"f:progressDeadlineSeconds\":{},\"f:replicas\":{},\"f:revisionHistoryLimit\":{},\"f:selector\":{},\"f:strategy\":{\"f:rollingUpdate\":{\".\":{},\"f:maxSurge\":{},\"f:maxUnavailable\":{}},\"f:type\":{}},\"f:template\":{\"f:metadata\":{\"f:labels\":{\".\":{},\"f:app\":{}}},\"f:spec\":{\"f:containers\":{\"k:{\\\"name\\\":\\\"nginx\\\"}\":{\".\":{},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:name\":{},\"f:resources\":{},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{}}},\"f:dnsPolicy\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:terminationGracePeriodSeconds\":{}}}}},\"manager\":\"kubectl-create\",\"operation\":\"Update\",\"time\":\"2025-03-23T19:14:17Z\"},{\"apiVersion\":\"apps/v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:deployment.kubernetes.io/revision\":{}}},\"f:status\":{\"f:availableReplicas\":{},\"f:conditions\":{\".\":{},\"k:{\\\"type\\\":\\\"Available\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Progressing\\\"}\":{\".\":{},\"f:lastTransitionTime\":{},\"f:lastUpdateTime\":{},\"f:message\":{},\"f:reason\":{},\"f:status\":{},\"f:type\":{}}},\"f:observedGeneration\":{},\"f:readyReplicas\":{},\"f:replicas\":{},\"f:updatedReplicas\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T14:22:38Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"progressDeadlineSeconds\":600,\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"nginx\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"creationTimestamp\":null,\"labels\":{\"app\":\"nginx\"}},\"spec\":{\"containers\":[{\"image\":\"nginx\",\"imagePullPolicy\":\"Always\",\"name\":\"nginx\",\"resources\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\"}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"terminationGracePeriodSeconds\":30}}}"
-      },
-      "status": {
-        "id": "",
-        "attribute": "{\"availableReplicas\":1,\"conditions\":[{\"lastTransitionTime\":\"2025-03-23T19:14:17Z\",\"lastUpdateTime\":\"2025-03-23T19:14:32Z\",\"message\":\"ReplicaSet \\\"nginx-676b6c5bbc\\\" has successfully progressed.\",\"reason\":\"NewReplicaSetAvailable\",\"status\":\"True\",\"type\":\"Progressing\"},{\"lastTransitionTime\":\"2025-03-24T14:22:38Z\",\"lastUpdateTime\":\"2025-03-24T14:22:38Z\",\"message\":\"Deployment has minimum availability.\",\"reason\":\"MinimumReplicasAvailable\",\"status\":\"True\",\"type\":\"Available\"}],\"observedGeneration\":1,\"readyReplicas\":1,\"replicas\":1,\"updatedReplicas\":1}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": null
     },
     {
       "id": "",
@@ -1126,9 +950,9 @@
         "id": "",
         "name": "kube-root-ca.crt",
         "namespace": "meshery",
-        "uid": "b912c5ce-b87b-46bd-b3c1-608b59ea1eb2",
-        "resourceVersion": "67923",
-        "creationTimestamp": "2025-03-24T14:41:54Z",
+        "uid": "c27abf2b-baa6-4d95-b803-6a8fc75b8ae0",
+        "resourceVersion": "96262",
+        "creationTimestamp": "2025-03-24T20:25:07Z",
         "annotations": [
           {
             "id": "",
@@ -1138,7 +962,7 @@
             "value": "Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubernetes.default.svc. No other usage is guaranteed across distributions of Kubernetes clusters."
           }
         ],
-        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:data\":{\".\":{},\"f:ca.crt\":{}},\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubernetes.io/description\":{}}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"time\":\"2025-03-24T14:41:54Z\"}]",
+        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:data\":{\".\":{},\"f:ca.crt\":{}},\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubernetes.io/description\":{}}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"time\":\"2025-03-24T20:25:07Z\"}]",
         "cluster_id": ""
       },
       "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
@@ -1178,31 +1002,31 @@
     {
       "id": "",
       "apiVersion": "meshery.io/v1alpha1",
-      "kind": "MeshSync",
+      "kind": "Broker",
       "model": "",
       "metadata": {
         "id": "",
-        "name": "meshery-meshsync",
+        "name": "meshery-broker",
         "namespace": "meshery",
-        "uid": "51a93d0b-6f24-428a-8e19-dec9907c6ae3",
-        "resourceVersion": "85557",
+        "uid": "dc940063-ab50-4775-b1cc-21d62ac325e9",
+        "resourceVersion": "96266",
         "generation": 1,
-        "creationTimestamp": "2025-03-24T18:22:36Z",
+        "creationTimestamp": "2025-03-24T20:25:09Z",
         "annotations": [
           {
             "id": "",
             "unique_id": "",
             "kind": "annotation",
             "key": "kubectl.kubernetes.io/last-applied-configuration",
-            "value": "{\\\"apiVersion\\\":\\\"meshery.io/v1alpha1\\\",\\\"kind\\\":\\\"MeshSync\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"name\\\":\\\"meshery-meshsync\\\",\\\"namespace\\\":\\\"meshery\\\"},\\\"spec\\\":{\\\"broker\\\":{\\\"native\\\":{\\\"name\\\":\\\"meshery-broker\\\",\\\"namespace\\\":\\\"meshery\\\"}},\\\"size\\\":1,\\\"watch-list\\\":{\\\"data\\\":{\\\"whitelist\\\":\\\"[{\\\\\\\"Resource\\\\\\\":\\\\\\\"namespaces.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"configmaps.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"nodes.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"pods.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"services.v1.\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"deployments.v1.apps\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"statefulsets.v1.apps\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]},{\\\\\\\"Resource\\\\\\\":\\\\\\\"daemonsets.v1.apps\\\\\\\",\\\\\\\"Events\\\\\\\":[\\\\\\\"ADDED\\\\\\\",\\\\\\\"MODIFIED\\\\\\\",\\\\\\\"DELETED\\\\\\\"]}]\\\"}}}}\\n"
+            "value": "{\\\"apiVersion\\\":\\\"meshery.io/v1alpha1\\\",\\\"kind\\\":\\\"Broker\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"name\\\":\\\"meshery-broker\\\",\\\"namespace\\\":\\\"meshery\\\"},\\\"spec\\\":{\\\"size\\\":1}}\\n"
           }
         ],
-        "managedFields": "[{\"apiVersion\":\"meshery.io/v1alpha1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubectl.kubernetes.io/last-applied-configuration\":{}}},\"f:spec\":{\".\":{},\"f:broker\":{\".\":{},\"f:native\":{\".\":{},\"f:name\":{},\"f:namespace\":{}}},\"f:size\":{},\"f:watch-list\":{\".\":{},\"f:data\":{\".\":{},\"f:whitelist\":{}}}}},\"manager\":\"kubectl-client-side-apply\",\"operation\":\"Update\",\"time\":\"2025-03-24T18:22:36Z\"}]",
+        "managedFields": "[{\"apiVersion\":\"meshery.io/v1alpha1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:annotations\":{\".\":{},\"f:kubectl.kubernetes.io/last-applied-configuration\":{}}},\"f:spec\":{\".\":{},\"f:size\":{}}},\"manager\":\"kubectl-client-side-apply\",\"operation\":\"Update\",\"time\":\"2025-03-24T20:25:09Z\"}]",
         "cluster_id": ""
       },
       "spec": {
         "id": "",
-        "attribute": "{\"broker\":{\"native\":{\"name\":\"meshery-broker\",\"namespace\":\"meshery\"}},\"size\":1,\"watch-list\":{\"data\":{\"whitelist\":\"[{\\\"Resource\\\":\\\"namespaces.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"configmaps.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"nodes.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"pods.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"services.v1.\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"deployments.v1.apps\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"statefulsets.v1.apps\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]},{\\\"Resource\\\":\\\"daemonsets.v1.apps\\\",\\\"Events\\\":[\\\"ADDED\\\",\\\"MODIFIED\\\",\\\"DELETED\\\"]}]\"}}}"
+        "attribute": "{\"size\":1}"
       },
       "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
       "pattern_resource": null,
@@ -1757,58 +1581,6 @@
       "model": "",
       "metadata": {
         "id": "",
-        "name": "meshery-84d986dbf5-nndgr",
-        "generateName": "meshery-84d986dbf5-",
-        "namespace": "meshery",
-        "uid": "38b8fec2-f863-4d98-869c-e59c2c25b356",
-        "resourceVersion": "93142",
-        "creationTimestamp": "2025-03-24T19:57:51Z",
-        "labels": [
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/instance",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "app.kubernetes.io/name",
-            "value": "meshery"
-          },
-          {
-            "id": "",
-            "unique_id": "",
-            "kind": "label",
-            "key": "pod-template-hash",
-            "value": "84d986dbf5"
-          }
-        ],
-        "ownerReferences": "[{\"apiVersion\":\"apps/v1\",\"blockOwnerDeletion\":true,\"controller\":true,\"kind\":\"ReplicaSet\",\"name\":\"meshery-84d986dbf5\",\"uid\":\"ccd6fa84-95e4-49c4-8b0a-d25b177f4d65\"}]",
-        "managedFields": "[{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:metadata\":{\"f:generateName\":{},\"f:labels\":{\".\":{},\"f:app.kubernetes.io/instance\":{},\"f:app.kubernetes.io/name\":{},\"f:pod-template-hash\":{}},\"f:ownerReferences\":{\".\":{},\"k:{\\\"uid\\\":\\\"ccd6fa84-95e4-49c4-8b0a-d25b177f4d65\\\"}\":{}}},\"f:spec\":{\"f:containers\":{\"k:{\\\"name\\\":\\\"meshery\\\"}\":{\".\":{},\"f:env\":{\".\":{},\"k:{\\\"name\\\":\\\"ADAPTER_URLS\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"EVENT\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"KEYS_PATH\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"MESHERY_SERVER_CALLBACK_URL\\\"}\":{\".\":{},\"f:name\":{}},\"k:{\\\"name\\\":\\\"PROVIDER\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}},\"k:{\\\"name\\\":\\\"PROVIDER_BASE_URLS\\\"}\":{\".\":{},\"f:name\":{},\"f:value\":{}}},\"f:image\":{},\"f:imagePullPolicy\":{},\"f:name\":{},\"f:ports\":{\".\":{},\"k:{\\\"containerPort\\\":8080,\\\"protocol\\\":\\\"TCP\\\"}\":{\".\":{},\"f:containerPort\":{},\"f:name\":{},\"f:protocol\":{}}},\"f:resources\":{},\"f:securityContext\":{},\"f:terminationMessagePath\":{},\"f:terminationMessagePolicy\":{}}},\"f:dnsPolicy\":{},\"f:enableServiceLinks\":{},\"f:restartPolicy\":{},\"f:schedulerName\":{},\"f:securityContext\":{},\"f:serviceAccount\":{},\"f:serviceAccountName\":{},\"f:terminationGracePeriodSeconds\":{}}},\"manager\":\"kube-controller-manager\",\"operation\":\"Update\",\"time\":\"2025-03-24T19:57:51Z\"},{\"apiVersion\":\"v1\",\"fieldsType\":\"FieldsV1\",\"fieldsV1\":{\"f:status\":{\"f:conditions\":{\"k:{\\\"type\\\":\\\"ContainersReady\\\"}\":{\".\":{},\"f:lastProbeTime\":{},\"f:lastTransitionTime\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Initialized\\\"}\":{\".\":{},\"f:lastProbeTime\":{},\"f:lastTransitionTime\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"PodReadyToStartContainers\\\"}\":{\".\":{},\"f:lastProbeTime\":{},\"f:lastTransitionTime\":{},\"f:status\":{},\"f:type\":{}},\"k:{\\\"type\\\":\\\"Ready\\\"}\":{\".\":{},\"f:lastProbeTime\":{},\"f:lastTransitionTime\":{},\"f:status\":{},\"f:type\":{}}},\"f:containerStatuses\":{},\"f:hostIP\":{},\"f:hostIPs\":{},\"f:phase\":{},\"f:podIP\":{},\"f:podIPs\":{\".\":{},\"k:{\\\"ip\\\":\\\"10.1.0.30\\\"}\":{\".\":{},\"f:ip\":{}}},\"f:startTime\":{}}},\"manager\":\"kubelet\",\"operation\":\"Update\",\"subresource\":\"status\",\"time\":\"2025-03-24T19:57:56Z\"}]",
-        "cluster_id": ""
-      },
-      "spec": {
-        "id": "",
-        "attribute": "{\"containers\":[{\"env\":[{\"name\":\"ADAPTER_URLS\",\"value\":\"meshery-istio:10000 meshery-linkerd:10001 meshery-consul:10002 meshery-kuma:10007 meshery-nginx-sm:10010 meshery-nsm:10004 meshery-app-mesh:10005 meshery-traefik-mesh:10006 meshery-cilium:10012\"},{\"name\":\"EVENT\",\"value\":\"mesheryLocal\"},{\"name\":\"KEYS_PATH\",\"value\":\"../../server/permissions/keys.csv\"},{\"name\":\"MESHERY_SERVER_CALLBACK_URL\"},{\"name\":\"PROVIDER\",\"value\":\"Meshery\"},{\"name\":\"PROVIDER_BASE_URLS\",\"value\":\"https://cloud.layer5.io\"}],\"image\":\"layer5/meshery:stable-latest\",\"imagePullPolicy\":\"Always\",\"name\":\"meshery\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"}],\"resources\":{},\"securityContext\":{},\"terminationMessagePath\":\"/dev/termination-log\",\"terminationMessagePolicy\":\"File\",\"volumeMounts\":[{\"mountPath\":\"/var/run/secrets/kubernetes.io/serviceaccount\",\"name\":\"kube-api-access-86ds2\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"enableServiceLinks\":true,\"nodeName\":\"docker-desktop\",\"preemptionPolicy\":\"PreemptLowerPriority\",\"priority\":0,\"restartPolicy\":\"Always\",\"schedulerName\":\"default-scheduler\",\"securityContext\":{},\"serviceAccount\":\"meshery-server\",\"serviceAccountName\":\"meshery-server\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"effect\":\"NoExecute\",\"key\":\"node.kubernetes.io/not-ready\",\"operator\":\"Exists\",\"tolerationSeconds\":300},{\"effect\":\"NoExecute\",\"key\":\"node.kubernetes.io/unreachable\",\"operator\":\"Exists\",\"tolerationSeconds\":300}],\"volumes\":[{\"name\":\"kube-api-access-86ds2\",\"projected\":{\"defaultMode\":420,\"sources\":[{\"serviceAccountToken\":{\"expirationSeconds\":3607,\"path\":\"token\"}},{\"configMap\":{\"items\":[{\"key\":\"ca.crt\",\"path\":\"ca.crt\"}],\"name\":\"kube-root-ca.crt\"}},{\"downwardAPI\":{\"items\":[{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"},\"path\":\"namespace\"}]}}]}}]}"
-      },
-      "status": {
-        "id": "",
-        "attribute": "{\"conditions\":[{\"lastProbeTime\":null,\"lastTransitionTime\":\"2025-03-24T19:57:56Z\",\"status\":\"True\",\"type\":\"PodReadyToStartContainers\"},{\"lastProbeTime\":null,\"lastTransitionTime\":\"2025-03-24T19:57:51Z\",\"status\":\"True\",\"type\":\"Initialized\"},{\"lastProbeTime\":null,\"lastTransitionTime\":\"2025-03-24T19:57:56Z\",\"status\":\"True\",\"type\":\"Ready\"},{\"lastProbeTime\":null,\"lastTransitionTime\":\"2025-03-24T19:57:56Z\",\"status\":\"True\",\"type\":\"ContainersReady\"},{\"lastProbeTime\":null,\"lastTransitionTime\":\"2025-03-24T19:57:51Z\",\"status\":\"True\",\"type\":\"PodScheduled\"}],\"containerStatuses\":[{\"containerID\":\"docker://8dd6408c75a096b8235480912bb350d6abbadcb7b215fc1f96ee9d8b5d4f22f4\",\"image\":\"layer5/meshery:stable-latest\",\"imageID\":\"docker-pullable://layer5/meshery@sha256:1fcd1cb027a52de730f7c3f6d1c1b5d7fe43a55e6d7af9bc900c9b854f6c06e8\",\"lastState\":{},\"name\":\"meshery\",\"ready\":true,\"restartCount\":0,\"started\":true,\"state\":{\"running\":{\"startedAt\":\"2025-03-24T19:57:56Z\"}},\"volumeMounts\":[{\"mountPath\":\"/var/run/secrets/kubernetes.io/serviceaccount\",\"name\":\"kube-api-access-86ds2\",\"readOnly\":true,\"recursiveReadOnly\":\"Disabled\"}]}],\"hostIP\":\"192.168.65.3\",\"hostIPs\":[{\"ip\":\"192.168.65.3\"}],\"phase\":\"Running\",\"podIP\":\"10.1.0.30\",\"podIPs\":[{\"ip\":\"10.1.0.30\"}],\"qosClass\":\"BestEffort\",\"startTime\":\"2025-03-24T19:57:51Z\"}"
-      },
-      "cluster_id": "44a1d888-f4d4-404e-9c99-1795cfcd1b6b",
-      "pattern_resource": null,
-      "component_metadata": null
-    },
-    {
-      "id": "",
-      "apiVersion": "v1",
-      "kind": "Pod",
-      "model": "",
-      "metadata": {
-        "id": "",
         "name": "nginx-676b6c5bbc-lcwjj",
         "generateName": "nginx-676b6c5bbc-",
         "namespace": "test-snapshot",
@@ -1848,6 +1620,6 @@
       "component_metadata": null
     }
   ],
-  "timestamp": "2025-03-25T01:31:42+05:30",
+  "timestamp": "2025-03-25T01:55:15+05:30",
   "version": "v1"
 }
